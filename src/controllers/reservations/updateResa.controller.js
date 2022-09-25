@@ -1,0 +1,70 @@
+const db = require("../../models");
+const resa = db.reservation;
+const { isOverlaping } = require("./reservations.utilities");
+
+async function updateResa(req, res) {
+	const { id, startDate, endDate, iduser, idCar } = req.body;
+
+	if (!id)
+		return res.status(400).send({
+			message: "id is required",
+		});
+
+	if (isNaN(id)) return res.status(400).send({ message: "id must be a number" });
+
+	// verify if date have correct format
+	if (startDate && isNaN(Date.parse(startDate))) {
+		return res.status(400).send({ message: "startDate must be a date" });
+	}
+
+	if (endDate && isNaN(Date.parse(endDate))) {
+		return res.status(400).send({ message: "endDate must be a date" });
+	}
+
+	try {
+		// get the reservation to update
+		const reservation = (await resa.findOne({ where: { id } })).dataValues;
+
+		// check if reservation exists
+		if (!reservation)
+			return res.status(404).send({
+				message: "Reservation not found",
+			});
+
+		const newresa = {};
+
+		for (const key in reservation) {
+			if (req.body[key]) {
+				newresa[key] = req.body[key];
+			} else {
+				newresa[key] = reservation[key];
+			}
+		}
+
+		// check if dates are after today
+		if (newresa.startDate < Date.now() || newresa.endDate < Date.now()) return res.status(400).json({ message: "Dates must be after today" });
+
+		// check if start is before end
+		if (new Date(newresa.startDate) >= new Date(newresa.endDate)) return res.status(400).json({ message: "Start date must be before end date" });
+
+		const isOverlapingResa = await isOverlaping(newresa);
+
+		// check if there is no overlapping reservation
+		if (isOverlapingResa)
+			return res.status(400).json({
+				message: "This car is already reserved for this period",
+			});
+
+		await resa.update(newresa, { where: { id } });
+	} catch (error) {
+		return res.status(500).send({
+			message: error.message,
+		});
+	}
+
+	res.status(200).send({
+		message: "Reservation updated successfully",
+	});
+}
+
+module.exports = updateResa;

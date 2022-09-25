@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+    mysql:
+        image: mysql
+        restart: unless-stopped
+        # env_file: ./.env
+        environment:
+            MYSQL_DATABASE: ${DB_NAME}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "8083:3306"
+        volumes:
+            - carsexpress:/var/lib/mysql
+
+    api:
+        depends_on:
+            - mysql
+
+        container_name: express_cars_api
+        build:
+            dockerfile: dockerfile
+            context: .
+
+        # env_file: ./.env
+        volumes:
+            - .:/app
+        ports:
+            - "${PORT}:${PORT}"
+
+volumes:
+    carsexpress:
