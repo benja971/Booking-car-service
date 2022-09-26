@@ -4,7 +4,7 @@ const users = db.users;
 async function deleteUser(req, res) {
 	const { id } = req.query;
 
-	if (isNaN(id)) return res.status(400).json({ message: "Id must be a number" });
+	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 
 	if (!id)
 		return res.status(400).send({

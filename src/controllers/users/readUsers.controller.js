@@ -13,9 +13,9 @@ async function readUsers(req, res) {
 async function readUser(req, res) {
 	const { id } = req.params;
 
-	if (!id) return res.status(400).json({ message: "Id is required" });
+	if (!id) return res.status(400).send({ message: "Id is required" });
 
-	if (isNaN(id)) return res.status(400).json({ message: "Id must be a number" });
+	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 
 	try {
 		// find user

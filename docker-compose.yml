@@ -3,6 +3,7 @@ version: "3.8"
 services:
     mysql:
         image: mysql
+        container_name: express_car_db
         restart: unless-stopped
         # env_file: ./.env
         environment:

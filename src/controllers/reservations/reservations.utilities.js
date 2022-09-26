@@ -25,7 +25,7 @@ async function isOverlaping(reservation) {
 
 		return count > 0;
 	} catch (error) {
-		return res.status(500).json({ message: error.message });
+		return res.status(500).send({ message: error.message });
 	}
 }
 

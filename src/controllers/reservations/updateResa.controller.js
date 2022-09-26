@@ -42,16 +42,16 @@ async function updateResa(req, res) {
 		}
 
 		// check if dates are after today
-		if (newresa.startDate < Date.now() || newresa.endDate < Date.now()) return res.status(400).json({ message: "Dates must be after today" });
+		if (newresa.startDate < Date.now() || newresa.endDate < Date.now()) return res.status(400).send({ message: "Dates must be after today" });
 
 		// check if start is before end
-		if (new Date(newresa.startDate) >= new Date(newresa.endDate)) return res.status(400).json({ message: "Start date must be before end date" });
+		if (new Date(newresa.startDate) >= new Date(newresa.endDate)) return res.status(400).send({ message: "Start date must be before end date" });
 
 		const isOverlapingResa = await isOverlaping(newresa);
 
 		// check if there is no overlapping reservation
 		if (isOverlapingResa)
-			return res.status(400).json({
+			return res.status(400).send({
 				message: "This car is already reserved for this period",
 			});
 

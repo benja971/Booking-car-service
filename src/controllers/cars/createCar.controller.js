@@ -11,14 +11,14 @@ async function createCar(req, res) {
 
 	try {
 		// add car to database
-		await cars.create({
+		const car = await cars.create({
 			model,
 		});
+
+		return res.status(201).send(car);
 	} catch (error) {
 		return res.status(500).send({ message: "Error while creating car" });
 	}
-
-	res.status(200).send({ message: "Car created" });
 }
 
 module.exports = createCar;

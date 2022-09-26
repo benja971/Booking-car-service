@@ -9,7 +9,7 @@ async function deleteCar(req, res) {
 			message: "Content cannot be empty !",
 		});
 
-	if (isNaN(id)) return res.status(400).json({ message: "Id must be a number" });
+	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 
 	try {
 		// delete car from database

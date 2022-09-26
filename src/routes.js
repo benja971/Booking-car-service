@@ -15,22 +15,22 @@ const { readResas, readResa } = require("./controllers/reservations/readResas.co
 
 function routes(app) {
 	app.post("/car", createCar);
-	app.patch("/car/update/:id", updateCar);
-	app.delete("/car/delete/:id", deleteCar);
+	app.patch("/cars/update/:id", updateCar);
+	app.delete("/cars/delete/:id", deleteCar);
 	app.get("/cars", readCars);
-	app.get("/car/:id", readCar);
+	app.get("/cars/:id", readCar);
 
 	app.post("user", createUser);
-	app.patch("user/update/:id", updateUser);
-	app.delete("user/delete/:id", deleteUser);
+	app.patch("users/update/:id", updateUser);
+	app.delete("users/delete/:id", deleteUser);
 	app.get("users", readUsers);
-	app.get("user/:id", readUser);
+	app.get("users/:id", readUser);
 
-	app.post("/reservation", createResa);
-	app.patch("/reservation/update/:id", updateResa);
-	app.delete("/reservation/delete/:id", deleteResa);
+	app.post("/reservations", createResa);
+	app.patch("/reservations/update/:id", updateResa);
+	app.delete("/reservations/delete/:id", deleteResa);
 	app.get("/reservations", readResas);
-	app.get("/reservation/:id", readResa);
+	app.get("/reservations/:id", readResa);
 }
 
 module.exports = routes;
