@@ -1,5 +1,5 @@
 const db = require("../../models");
-const Car = db.cars;
+const Car = db.car;
 
 async function updateCar(req, res) {
 	const { id } = req.params;

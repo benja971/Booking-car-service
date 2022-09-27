@@ -11,6 +11,22 @@ module.exports = (sequelize, Sequelize) => {
 			trim: true,
 			allowNull: false,
 		},
+		email: {
+			type: Sequelize.STRING,
+			trim: true,
+			allowNull: false,
+			unique: true,
+		},
+		password: {
+			type: Sequelize.STRING,
+			trim: true,
+			allowNull: false,
+		},
+		roleId: {
+			type: Sequelize.BIGINT,
+			allowNull: false,
+			defaultValue: 1,
+		},
 	});
 
 	return User;

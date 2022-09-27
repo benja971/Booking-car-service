@@ -23,6 +23,7 @@ const db = {
 db.user = require("./user.model.js")(db.sequelize, db.Sequelize);
 db.car = require("./car.model.js")(db.sequelize, db.Sequelize);
 db.reservation = require("./resa.model.js")(db.sequelize, db.Sequelize);
+db.role = require("./role.model.js")(db.sequelize, db.Sequelize);
 
 // there is a user in a reservation
 db.reservation.belongsTo(db.user, {
@@ -34,6 +35,11 @@ db.reservation.belongsTo(db.car, {
 	foreignKey: "carId",
 });
 
+// there is a role in a user
+db.user.belongsTo(db.role, {
+	foreignKey: "roleId",
+});
+
 // delete all reservations when a user is deleted
 db.user.hasMany(db.reservation, {
 	foreignKey: "userId",
@@ -43,6 +49,12 @@ db.user.hasMany(db.reservation, {
 // delete all reservations when a car is deleted
 db.car.hasMany(db.reservation, {
 	foreignKey: "carId",
+	onDelete: "cascade",
+});
+
+// delete all users when a role is deleted
+db.role.hasMany(db.user, {
+	foreignKey: "roleId",
 	onDelete: "cascade",
 });
 

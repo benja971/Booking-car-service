@@ -1,5 +1,5 @@
 const db = require("../../models");
-const Car = db.cars;
+const Car = db.car;
 
 async function readCars(req, res) {
 	try {

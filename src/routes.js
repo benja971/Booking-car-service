@@ -13,11 +13,14 @@ const updateResa = require("./controllers/reservations/updateResa.controller");
 const deleteResa = require("./controllers/reservations/deleteResa.controller");
 const { readResas, readResa } = require("./controllers/reservations/readResas.controller");
 
+const createToken = require("./controllers/tokens/createToken.controller");
+const verifyToken = require("./middlewares/verifyToken.middleware");
+
 function routes(app) {
 	app.post("/car", createCar);
 	app.patch("/cars/update/:id", updateCar);
 	app.delete("/cars/delete/:id", deleteCar);
-	app.get("/cars", readCars);
+	app.get("/cars", verifyToken, readCars);
 	app.get("/cars/:id", readCar);
 
 	app.post("user", createUser);
@@ -31,6 +34,8 @@ function routes(app) {
 	app.delete("/reservations/delete/:id", deleteResa);
 	app.get("/reservations", readResas);
 	app.get("/reservations/:id", readResa);
+
+	app.post("/tokens", createToken);
 }
 
 module.exports = routes;

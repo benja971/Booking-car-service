@@ -1,5 +1,5 @@
 const db = require("../../models");
-const cars = db.cars;
+const cars = db.car;
 
 async function deleteCar(req, res) {
 	const { id } = req.params;

@@ -1,5 +1,5 @@
 const db = require("../../models");
-const users = db.users;
+const users = db.user;
 
 async function deleteUser(req, res) {
 	const { id } = req.query;

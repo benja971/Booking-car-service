@@ -1,6 +1,15 @@
 const db = require("../../models");
 const resa = db.reservation;
 
+async function readResas(req, res) {
+	try {
+		const reservations = await resa.findAll();
+		return res.status(200).send(reservations);
+	} catch (error) {
+		return res.status(500).send({ message: error.message });
+	}
+}
+
 async function readResa(req, res) {
 	const { id } = req.params;
 
@@ -20,15 +29,6 @@ async function readResa(req, res) {
 	if (!reservation) return res.status(404).send({ message: "Reservation not found" });
 
 	return res.status(200).json(reservation);
-}
-
-async function readResas(req, res) {
-	try {
-		const reservations = await resa.findAll();
-		return res.status(200).send(reservations);
-	} catch (error) {
-		return res.status(500).send({ message: error.message });
-	}
 }
 
 module.exports = { readResa, readResas };
