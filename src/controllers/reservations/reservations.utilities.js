@@ -1,7 +1,7 @@
 const db = require("../../models");
 const resa = db.reservation;
 
-async function isOverlaping(reservation) {
+async function isOverlaping(req, res, reservation) {
 	const { startDate, endDate, carId } = reservation;
 	try {
 		// count all reservations for this car with date overlapping with the new reservation

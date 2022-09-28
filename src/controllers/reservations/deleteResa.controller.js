@@ -6,7 +6,8 @@ async function deleteResa(req, res) {
 
 	if (!id) return res.status(400).send({ message: "Id is required" });
 
-	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
+	if (isNaN(id))
+		return res.status(400).send({ message: "Id must be a number" });
 
 	try {
 		// delete reservation
@@ -15,7 +16,9 @@ async function deleteResa(req, res) {
 		return res.status(500).send({ message: error.message });
 	}
 
-	return res.status(200).send({ message: "Reservation deleted successfully" });
+	return res
+		.status(200)
+		.send({ message: "Reservation deleted successfully" });
 }
 
 module.exports = deleteResa;

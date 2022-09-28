@@ -1,5 +1,6 @@
 const express = require("express");
 const compression = require("compression");
+const bcrypt = require("bcrypt");
 
 const sequelize = require("sequelize");
 const db = require("./models");
@@ -12,7 +13,7 @@ const app = express();
 
 db.sequelize
 	.sync({ force: true })
-	.then(() => {
+	.then(async () => {
 		// create roles
 		db.role.create({
 			name: "user",
@@ -26,28 +27,28 @@ db.sequelize
 		db.user.create({
 			name: "john",
 			email: "john@gmail.com",
-			password: "user",
+			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
 		db.user.create({
 			name: "jane",
 			email: "jane@gmail.com",
-			password: "user",
+			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
 		db.user.create({
 			name: "jack",
 			email: "jack@gmail.com",
-			password: "user",
+			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
 		db.user.create({
 			name: "admin",
 			email: "arandomadmin@gmail.com",
-			password: "admin",
+			password: await bcrypt.hash("admin", 10),
 			roleId: 2,
 		});
 
@@ -78,7 +79,7 @@ db.sequelize
 
 		console.log("Database & tables created!");
 	})
-	.catch((err) => {
+	.catch(err => {
 		console.log(err);
 	});
 
