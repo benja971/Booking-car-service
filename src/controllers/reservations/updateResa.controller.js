@@ -3,7 +3,7 @@ const resa = db.reservation;
 const { isOverlaping } = require("./reservations.utilities");
 
 async function updateResa(req, res) {
-	const { id, startDate, endDate, iduser, idCar } = req.body;
+	const { id, startDate, endDate, carId, userId } = req.body;
 
 	if (!id)
 		return res.status(400).send({
@@ -34,20 +34,19 @@ async function updateResa(req, res) {
 		const newresa = {};
 
 		for (const key in reservation) {
-			if (req.body[key]) {
-				newresa[key] = req.body[key];
-			} else {
-				newresa[key] = reservation[key];
-			}
+			if (req.body[key]) newresa[key] = req.body[key];
+			else newresa[key] = reservation[key];
 		}
 
 		// check if dates are after today
-		if (newresa.startDate < Date.now() || newresa.endDate < Date.now()) return res.status(400).send({ message: "Dates must be after today" });
+		if (newresa.startDate < Date.now() || newresa.endDate < Date.now())
+			return res.status(400).send({ message: "Dates must be after today" });
 
 		// check if start is before end
-		if (new Date(newresa.startDate) >= new Date(newresa.endDate)) return res.status(400).send({ message: "Start date must be before end date" });
+		if (new Date(newresa.startDate) >= new Date(newresa.endDate))
+			return res.status(400).send({ message: "Start date must be before end date" });
 
-		const isOverlapingResa = await isOverlaping(newresa);
+		const isOverlapingResa = await isOverlaping(req, res, newresa);
 
 		// check if there is no overlapping reservation
 		if (isOverlapingResa)

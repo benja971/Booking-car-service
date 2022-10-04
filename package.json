@@ -5,7 +5,8 @@
 	"main": "./src/server.js",
 	"scripts": {
 		"start": "node ./src/server.js",
-		"dev": "nodemon ./src/server.js --watch ./src"
+		"dev": "nodemon ./src/server.js --watch ./src",
+		"docker": "docker-compose up -d"
 	},
 	"keywords": [],
 	"author": "",

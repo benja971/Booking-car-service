@@ -6,27 +6,18 @@ const { readCars, readCar } = require("./controllers/cars/readCars.controller");
 const createUser = require("./controllers/users/createUser.controller");
 const updateUser = require("./controllers/users/updateUser.controller");
 const deleteUser = require("./controllers/users/deleteUser.controller");
-const {
-	readUsers,
-	readUser,
-} = require("./controllers/users/readUsers.controller");
+const { readUsers, readUser } = require("./controllers/users/readUsers.controller");
 
 const createResa = require("./controllers/reservations/createResa.controller");
 const updateResa = require("./controllers/reservations/updateResa.controller");
 const deleteResa = require("./controllers/reservations/deleteResa.controller");
-const {
-	readResas,
-	readResa,
-} = require("./controllers/reservations/readResas.controller");
+const { readResas, readResa } = require("./controllers/reservations/readResas.controller");
 
 const login = require("./controllers/tokens/login.controller");
-const {
-	verifyToken,
-	verifyAdmin,
-} = require("./middlewares/verifyToken.middleware");
+const { verifyToken, verifyAdmin } = require("./middlewares/verifyToken.middleware");
+const verifyOwner = require("./middlewares/verifyOwner.middleware");
 
 // TODO: verify that the user who wants to read/update/delete a user is an admin or the user itself
-// TODO: verify that the user who wants to read/update/delete a reservation is an admin or the user who made the reservation
 
 function routes(app) {
 	app.post("/car", [verifyToken, verifyAdmin], createCar);
@@ -42,10 +33,10 @@ function routes(app) {
 	app.get("users/:id", [verifyToken], readUser);
 
 	app.post("/reservations", verifyToken, createResa);
-	app.patch("/reservations/update/:id", [verifyToken], updateResa);
-	app.delete("/reservations/delete/:id", [verifyToken], deleteResa);
+	app.patch("/reservations/update/:id", [verifyToken, verifyOwner], updateResa);
+	app.delete("/reservations/delete/:id", [verifyToken, verifyOwner], deleteResa);
 	app.get("/reservations", [verifyToken, verifyAdmin], readResas);
-	app.get("/reservations/:id", [verifyToken], readResa);
+	app.get("/reservations/:id", [verifyToken, verifyOwner], readResa);
 
 	app.post("/login", login);
 }

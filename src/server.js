@@ -11,6 +11,12 @@ const routes = require("./routes");
 
 const app = express();
 
+Date.prototype.addDays = function (days) {
+	const date = new Date(this.valueOf());
+	date.setDate(date.getDate() + days);
+	return date;
+};
+
 db.sequelize
 	.sync({ force: true })
 	.then(async () => {
@@ -75,6 +81,13 @@ db.sequelize
 			year: 2019,
 			color: "black",
 			price: 100,
+		});
+
+		db.reservation.create({
+			userId: 2,
+			carId: 1,
+			startDate: new Date().addDays(1),
+			endDate: new Date().addDays(16),
 		});
 
 		console.log("Database & tables created!");

@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
 		},
 		brand: {
 			type: Sequelize.STRING,
-			notNull: true,
+			allowNull: false,
 			trim: true,
 		},
 		model: {
