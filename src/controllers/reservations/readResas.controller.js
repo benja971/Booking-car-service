@@ -21,14 +21,14 @@ async function readResa(req, res) {
 
 	try {
 		// find reservation
-		reservation = await resa.findByPk(id);
+		reservation = await resa.findOne({ where: { id } });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 
 	if (!reservation) return res.status(404).send({ message: "Reservation not found" });
 
-	return res.status(200).json(reservation);
+	return res.status(200).send(reservation);
 }
 
 module.exports = { readResa, readResas };

@@ -12,11 +12,11 @@ async function createToken(req, res) {
 			where: { email },
 		});
 
-		if (!user) return res.status(404).json({ message: "User not found" });
+		if (!user) return res.status(404).send({ message: "User not found" });
 
 		const isPasswordValid = await bcrypt.compare(password, user.password);
 
-		if (!isPasswordValid) return res.status(401).json({ message: "Invalid password" });
+		if (!isPasswordValid) return res.status(401).send({ message: "Invalid password" });
 
 		const { id, roleId } = user;
 
@@ -28,7 +28,7 @@ async function createToken(req, res) {
 
 		res.send({ user: user.dataValues, token });
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).send({ message: "Internal server error" });
 	}
 }
 

@@ -19,7 +19,7 @@ async function readUser(req, res) {
 
 	try {
 		// find user
-		const user = await users.findByPk(id);
+		const user = await users.findOne({ where: { id } });
 		return res.status(200).send(user);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });

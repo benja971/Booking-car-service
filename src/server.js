@@ -92,7 +92,7 @@ db.sequelize
 
 		console.log("Database & tables created!");
 	})
-	.catch(err => {
+	.catch((err) => {
 		console.log(err);
 	});
 

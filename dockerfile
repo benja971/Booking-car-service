@@ -1,8 +1,12 @@
-FROM node
-WORKDIR /app
-COPY ./package*.json ./
+FROM node:18.8.0
+
+WORKDIR /code
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+
 RUN npm install
-# RUN npm ci --only=production
+
 COPY . .
-ENTRYPOINT [ "npm", "run", "dev" ]
-# ENTRYPOINT [ "npm", "start" ]
+
+CMD ["npm", "run", "nodemon"]

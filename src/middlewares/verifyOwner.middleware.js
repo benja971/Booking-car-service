@@ -22,11 +22,11 @@ async function verifyOwner(req, res, next) {
 		const resa = (await Reservation.findOne({ where: { id } })).dataValues;
 
 		if (resa.userId !== userId && roleId !== 2)
-			return res.status(403).json({ message: "Require to be owner or admin" });
+			return res.status(403).send({ message: "Require to be owner or admin" });
 
 		if (roleId === 2) return verifyAdmin(req, res, next);
 	} catch (error) {
-		return res.status(500).json({ message: error });
+		return res.status(500).send({ message: error });
 	}
 
 	next();

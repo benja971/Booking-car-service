@@ -2,7 +2,7 @@ const db = require("../../models");
 const users = db.user;
 
 async function deleteUser(req, res) {
-	const { id } = req.query;
+	const { id } = req.params;
 
 	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 

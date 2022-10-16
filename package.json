@@ -4,21 +4,23 @@
 	"description": "",
 	"main": "./src/server.js",
 	"scripts": {
-		"start": "node ./src/server.js",
-		"dev": "nodemon ./src/server.js --watch ./src",
-		"docker": "docker-compose up -d"
+		"start": "node main",
+		"nodemon": "nodemon main --watch .",
+		"docker:start": "docker-compose up -d --build",
+		"docker:stop": "docker-compose down",
+		"dev": "npm run docker:stop && npm run docker:start"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"bcrypt": "^5.0.1",
+		"bcrypt": "^5.1.0",
 		"compression": "^1.7.4",
-		"dotenv": "^16.0.2",
+		"dotenv": "^16.0.3",
 		"express": "^4.18.1",
 		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.3",
 		"nodemon": "^2.0.20",
-		"sequelize": "^6.23.0"
+		"sequelize": "6.24.0"
 	}
 }

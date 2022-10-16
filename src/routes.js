@@ -16,8 +16,9 @@ const { readResas, readResa } = require("./controllers/reservations/readResas.co
 const login = require("./controllers/tokens/login.controller");
 const { verifyToken, verifyAdmin } = require("./middlewares/verifyToken.middleware");
 const verifyOwner = require("./middlewares/verifyOwner.middleware");
+const verifyUser = require("./middlewares/verifyUser.middleware");
 
-// TODO: verify that the user who wants to read/update/delete a user is an admin or the user itself
+// TODO: verify that a user can't interact with another user's reservations
 
 function routes(app) {
 	app.post("/car", [verifyToken, verifyAdmin], createCar);
@@ -26,11 +27,11 @@ function routes(app) {
 	app.get("/cars", [verifyToken, verifyAdmin], readCars);
 	app.get("/cars/:id", verifyToken, readCar);
 
-	app.post("user", createUser);
-	app.patch("users/update/:id", [verifyToken], updateUser);
-	app.delete("users/delete/:id", [verifyToken], deleteUser);
-	app.get("users", [verifyToken, verifyAdmin], readUsers);
-	app.get("users/:id", [verifyToken], readUser);
+	app.post("/user", createUser);
+	app.patch("/users/update/:id", [verifyToken, verifyUser], updateUser);
+	app.delete("/users/delete/:id", [verifyToken, verifyUser], deleteUser);
+	app.get("/users", [verifyToken, verifyAdmin], readUsers);
+	app.get("/users/:id", [verifyToken, verifyUser], readUser);
 
 	app.post("/reservations", verifyToken, createResa);
 	app.patch("/reservations/update/:id", [verifyToken, verifyOwner], updateResa);

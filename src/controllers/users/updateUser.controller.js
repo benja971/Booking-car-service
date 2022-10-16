@@ -2,7 +2,8 @@ const db = require("../../models");
 const user = db.user;
 
 async function updateUser(req, res) {
-	const { id, name } = req.body;
+	const { id } = req.params;
+	const { name } = req.body;
 
 	if (!id) return res.status(400).send({ message: "Id is required" });
 

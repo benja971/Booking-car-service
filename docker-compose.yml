@@ -10,7 +10,7 @@ services:
             MYSQL_DATABASE: ${DB_NAME}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - "8083:3306"
+            - "3306:3306"
         volumes:
             - carsexpress:/var/lib/mysql
 
@@ -28,6 +28,8 @@ services:
             - .:/app
         ports:
             - "${PORT}:${PORT}"
+
+        command: npm run nodemon
 
 volumes:
     carsexpress:
