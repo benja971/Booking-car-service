@@ -1,7 +1,9 @@
-const db = require("../../models");
-const resa = db.reservation;
+import { resa as Reservations } from "../../models";
 
-async function deleteResa(req, res) {
+export default async function deleteResa(req, res) {
+	/**
+	 * @type {Reservation}
+	 */
 	const { id } = req.params;
 
 	if (!id) return res.status(400).send({ message: "Id is required" });
@@ -10,12 +12,10 @@ async function deleteResa(req, res) {
 
 	try {
 		// delete reservation
-		await resa.destroy({ where: { id } });
+		await Reservations.destroy({ where: { id } });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 
-	return res.status(200).send({ message: "Reservation deleted successfully" });
+	return res.status(200);
 }
-
-module.exports = deleteResa;

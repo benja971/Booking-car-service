@@ -1,17 +1,43 @@
-const db = require("../../models");
-const Car = db.car;
+import { Sequelize } from "sequelize";
+/**
+ * @type {Sequelize.Model}
+ */
+import { car as Cars } from "../../models";
 
+/**
+ * get all cars from the database
+ *
+ * @group Cars
+ * @route GET /cars
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ *
+ * @returns {Array<Car>} 200 - An array of cars
+ */
 async function readCars(req, res) {
 	try {
-		const cars = await Car.findAll();
-
-		return res.status(200).send(cars);
+		return res.status(200).send(await Cars.findAll());
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 }
 
+/**
+ * get a car from the database
+ *
+ * @group Cars
+ * @route GET /cars/:id
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ *
+ * @returns {Car} 200 - A car
+ */
 async function readCar(req, res) {
+	/**
+	 * @type {Car}
+	 */
 	const { id } = req.params;
 
 	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
@@ -19,17 +45,10 @@ async function readCar(req, res) {
 	if (!id) return res.status(400).send({ message: "Id is required" });
 
 	try {
-		const car = await Car.findOne({ where: { id } });
-
-		if (!car) return res.status(404).send({ message: "Car not found" });
-
-		return res.status(200).send(car);
+		return res.status(200).send(await Cars.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 }
 
-module.exports = {
-	readCars,
-	readCar,
-};
+export default { readCars, readCar };

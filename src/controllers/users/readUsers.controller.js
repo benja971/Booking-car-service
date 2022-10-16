@@ -1,10 +1,8 @@
-const db = require("../../models");
-const users = db.user;
+import { user as Users } from "../models";
 
 async function readUsers(req, res) {
 	try {
-		const users = await users.findAll();
-		return res.status(200).send(users);
+		return res.status(200).send(await Users.findAll());
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
@@ -19,14 +17,10 @@ async function readUser(req, res) {
 
 	try {
 		// find user
-		const user = await users.findOne({ where: { id } });
-		return res.status(200).send(user);
+		return res.status(200).send(await Users.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 }
 
-module.exports = {
-	readUsers,
-	readUser,
-};
+export default { readUsers, readUser };

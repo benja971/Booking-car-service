@@ -1,25 +1,28 @@
-const createCar = require("./controllers/cars/createCar.controller");
-const updateCar = require("./controllers/cars/updateCar.controller");
-const deleteCar = require("./controllers/cars/deleteCar.controller");
-const { readCars, readCar } = require("./controllers/cars/readCars.controller");
+import createCar from "./controllers/cars/createCar.controller";
+import updateCar from "./controllers/cars/updateCar.controller";
+import deleteCar from "./controllers/cars/deleteCar.controller";
+import { readCars, readCar } from "./controllers/cars/readCars.controller";
 
-const createUser = require("./controllers/users/createUser.controller");
-const updateUser = require("./controllers/users/updateUser.controller");
-const deleteUser = require("./controllers/users/deleteUser.controller");
-const { readUsers, readUser } = require("./controllers/users/readUsers.controller");
+import createUser from "./controllers/users/createUser.controller";
+import updateUser from "./controllers/users/updateUser.controller";
+import deleteUser from "./controllers/users/deleteUser.controller";
+import { readUsers, readUser } from "./controllers/users/readUsers.controller";
 
-const createResa = require("./controllers/reservations/createResa.controller");
-const updateResa = require("./controllers/reservations/updateResa.controller");
-const deleteResa = require("./controllers/reservations/deleteResa.controller");
-const { readResas, readResa } = require("./controllers/reservations/readResas.controller");
+import createResa from "./controllers/reservations/createResa.controller";
+import updateResa from "./controllers/reservations/updateResa.controller";
+import deleteResa from "./controllers/reservations/deleteResa.controller";
+import { readResas, readResa } from "./controllers/reservations/readResas.controller";
 
-const login = require("./controllers/tokens/login.controller");
-const { verifyToken, verifyAdmin } = require("./middlewares/verifyToken.middleware");
-const verifyOwner = require("./middlewares/verifyOwner.middleware");
-const verifyUser = require("./middlewares/verifyUser.middleware");
+import login from "./controllers/tokens/login.controller";
+import { verifyToken, verifyAdmin } from "./middlewares/verifyToken.middleware";
+import verifyOwner from "./middlewares/verifyOwner.middleware";
+import verifyUser from "./middlewares/verifyUser.middleware";
 
 // TODO: verify that a user can't interact with another user's reservations
 
+/**
+ * @param {Express.Application} app
+ */
 function routes(app) {
 	app.post("/car", [verifyToken, verifyAdmin], createCar);
 	app.patch("/cars/update/:id", [verifyToken, verifyAdmin], updateCar);
@@ -42,4 +45,4 @@ function routes(app) {
 	app.post("/login", login);
 }
 
-module.exports = routes;
+export default routes;

@@ -1,8 +1,10 @@
-const db = require("../../models");
-const resa = db.reservation;
-const { isOverlaping } = require("./reservations.utilities");
+import { resa as Reservations } from "../../models";
+import { isOverlaping } from "./reservations.utilities";
 
-async function updateResa(req, res) {
+export default async function updateResa(req, res) {
+	/**
+	 * @type {Reservation}
+	 */
 	const { id, startDate, endDate, carId, userId } = req.body;
 
 	if (!id)
@@ -11,6 +13,10 @@ async function updateResa(req, res) {
 		});
 
 	if (isNaN(id)) return res.status(400).send({ message: "id must be a number" });
+
+	if (isNaN(carId)) return res.status(400).send({ message: "carId must be a number" });
+
+	if (isNaN(userId)) return res.status(400).send({ message: "userId must be a number" });
 
 	// verify if date have correct format
 	if (startDate && isNaN(Date.parse(startDate))) {
@@ -23,7 +29,7 @@ async function updateResa(req, res) {
 
 	try {
 		// get the reservation to update
-		const reservation = (await resa.findOne({ where: { id } })).dataValues;
+		const reservation = (await Reservations.findOne({ where: { id } })).dataValues;
 
 		// check if reservation exists
 		if (!reservation)
@@ -54,16 +60,12 @@ async function updateResa(req, res) {
 				message: "This car is already reserved for this period",
 			});
 
-		await resa.update(newresa, { where: { id } });
+		await Reservations.update(newresa, { where: { id } });
 	} catch (error) {
 		return res.status(500).send({
 			message: error.message,
 		});
 	}
 
-	res.status(200).send({
-		message: "Reservation updated successfully",
-	});
+	res.status(200);
 }
-
-module.exports = updateResa;

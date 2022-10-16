@@ -1,10 +1,8 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import { compare } from "bcrypt";
+import { sign } from "jsonwebtoken";
+import { user as User } from "../models";
 
-const db = require("../../models");
-const User = db.user;
-
-async function createToken(req, res) {
+export default async function createToken(req, res) {
 	const { email, password } = req.body;
 
 	try {
@@ -14,13 +12,13 @@ async function createToken(req, res) {
 
 		if (!user) return res.status(404).send({ message: "User not found" });
 
-		const isPasswordValid = await bcrypt.compare(password, user.password);
+		const isPasswordValid = await compare(password, user.password);
 
 		if (!isPasswordValid) return res.status(401).send({ message: "Invalid password" });
 
 		const { id, roleId } = user;
 
-		const token = jwt.sign({ userId: id, roleId }, process.env.JWT_SECRET, {
+		const token = sign({ userId: id, roleId }, process.env.JWT_SECRET, {
 			expiresIn: "1h",
 		});
 
@@ -31,5 +29,3 @@ async function createToken(req, res) {
 		res.status(500).send({ message: "Internal server error" });
 	}
 }
-
-module.exports = createToken;

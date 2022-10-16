@@ -1,7 +1,11 @@
-const db = require("../../models");
-const Car = db.car;
+import { Sequelize } from "sequelize";
 
-async function updateCar(req, res) {
+/**
+ * @type {Sequelize.Model}
+ */
+import { car as Cars } from "../../models";
+
+export default async function updateCar(req, res) {
 	const { id } = req.params;
 	const { model } = req.body;
 
@@ -16,12 +20,10 @@ async function updateCar(req, res) {
 
 	try {
 		// update car
-		await Car.update({ model }, { where: { id } });
+		await Cars.update({ model }, { where: { id } });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 
 	return res.status(200).send({ message: "Car updated successfully" });
 }
-
-module.exports = updateCar;

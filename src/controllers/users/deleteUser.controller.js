@@ -1,7 +1,9 @@
-const db = require("../../models");
-const users = db.user;
+import { user as Users } from "../../models";
 
-async function deleteUser(req, res) {
+export default async function deleteUser(req, res) {
+	/**
+	 * @type {User}
+	 */
 	const { id } = req.params;
 
 	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
@@ -13,7 +15,7 @@ async function deleteUser(req, res) {
 
 	try {
 		// delete user from database
-		await users.destroy({
+		await Users.destroy({
 			where: {
 				id,
 			},
@@ -22,7 +24,5 @@ async function deleteUser(req, res) {
 		return res.status(500).send({ message: "Error while deleting user" });
 	}
 
-	res.status(200).send({ message: "User deleted" });
+	res.status(200);
 }
-
-module.exports = deleteUser;

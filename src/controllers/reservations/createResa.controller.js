@@ -1,8 +1,10 @@
-const db = require("../../models");
-const resa = db.reservation;
-const { isOverlaping } = require("./reservations.utilities");
+import { resa as Reservations } from "../../models";
+import { isOverlaping } from "./reservations.utilities";
 
-async function createResa(req, res) {
+export default async function createResa(req, res) {
+	/**
+	 * @type {Reservation}
+	 */
 	const { startDate, endDate, carId, userId } = req.body;
 
 	const notvalid = !startDate || !endDate || !carId || !userId;
@@ -31,12 +33,10 @@ async function createResa(req, res) {
 		return res.status(400).send({ message: "This car is already reserved for this period" });
 
 	try {
-		await resa.create({ startDate, endDate, carId, userId });
+		await Reservations.create({ startDate, endDate, carId, userId });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 
-	return res.status(200).send({ message: "Reservation created successfully" });
+	return res.status(200);
 }
-
-module.exports = createResa;

@@ -1,7 +1,6 @@
-const db = require("../../models");
-const user = db.user;
+import { user as Users } from "../../models";
 
-async function updateUser(req, res) {
+export default async function updateUser(req, res) {
 	const { id } = req.params;
 	const { name } = req.body;
 
@@ -14,11 +13,9 @@ async function updateUser(req, res) {
 	if (typeof name !== "string") return res.status(400).send({ message: "Name must be a string" });
 
 	try {
-		await user.update({ name }, { where: { id } });
-		return res.status(200).send({ message: "User updated successfully" });
+		await Users.update({ name }, { where: { id } });
+		return res.status(200);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 }
-
-module.exports = updateUser;

@@ -1,7 +1,22 @@
-const db = require("../../models");
-const cars = db.car;
+import { Sequelize } from "sequelize";
+/**
+ * @type {Sequelize.Model}
+ */
+import { car as Cars } from "../../models";
 
-async function deleteCar(req, res) {
+/**
+ * Delete a car from the database
+ *
+ * @group Cars
+ * @route Delete /cars/delete/:id
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ */
+export default async function deleteCar(req, res) {
+	/**
+	 * @type {Car}
+	 */
 	const { id } = req.params;
 
 	if (!id)
@@ -13,7 +28,7 @@ async function deleteCar(req, res) {
 
 	try {
 		// delete car from database
-		await cars.destroy({
+		await Cars.destroy({
 			where: {
 				id,
 			},
@@ -22,7 +37,7 @@ async function deleteCar(req, res) {
 		return res.status(500).send({ message: "Error while deleting car" });
 	}
 
-	res.status(200).send({ message: "Car deleted" });
+	res.status(200);
 }
 
-module.exports = deleteCar;
+

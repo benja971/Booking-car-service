@@ -1,10 +1,8 @@
-const db = require("../../models");
-const resa = db.reservation;
+import { resa as Reservations } from "../../models";
 
 async function readResas(req, res) {
 	try {
-		const reservations = await resa.findAll();
-		return res.status(200).send(reservations);
+		return res.status(200).send(await Reservations.findAll());
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
@@ -17,18 +15,12 @@ async function readResa(req, res) {
 
 	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 
-	let reservation;
-
 	try {
 		// find reservation
-		reservation = await resa.findOne({ where: { id } });
+		return res.status(200).send(await Reservations.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
-
-	if (!reservation) return res.status(404).send({ message: "Reservation not found" });
-
-	return res.status(200).send(reservation);
 }
 
-module.exports = { readResa, readResas };
+export default { readResa, readResas };

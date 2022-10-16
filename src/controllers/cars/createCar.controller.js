@@ -1,7 +1,22 @@
-const db = require("../../models");
-const cars = db.car;
+import { Sequelize } from "sequelize";
+/**
+ * @type {Sequelize.Model}
+ */
+import { car as Cars } from "../../models";
 
-async function createCar(req, res) {
+/**
+ * Add a car to the database
+ *
+ * @group Cars
+ * @route POST /car
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ */
+export default async function createCar(req, res) {
+	/**
+	 * @type {Car}
+	 */
 	const { brand, model, year, color, price } = req.body;
 
 	if (!(brand && model && year && color && price))
@@ -10,8 +25,11 @@ async function createCar(req, res) {
 		});
 
 	try {
-		// add car to database
-		const car = await cars.create({
+		/**
+		 * add car to database
+		 *	@type {Car}
+		 */
+		await Cars.create({
 			brand,
 			model,
 			year,
@@ -19,10 +37,8 @@ async function createCar(req, res) {
 			price,
 		});
 
-		return res.status(201).send(car);
+		return res.status(201);
 	} catch (error) {
 		return res.status(500).send({ message: "Error while creating car" });
 	}
 }
-
-module.exports = createCar;
