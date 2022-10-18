@@ -1,9 +1,7 @@
-import { user as Users } from "../../models";
+import db from "../../models/index.js";
+const { User } = db;
 
 export default async function deleteUser(req, res) {
-	/**
-	 * @type {User}
-	 */
 	const { id } = req.params;
 
 	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
@@ -15,7 +13,7 @@ export default async function deleteUser(req, res) {
 
 	try {
 		// delete user from database
-		await Users.destroy({
+		await User.destroy({
 			where: {
 				id,
 			},

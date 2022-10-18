@@ -1,5 +1,7 @@
-import { verifyOwner } from "../middlewares";
-import { resa as Reservations } from "../models";
+import verifyAdmin from "../middlewares/verifyUser.middleware.js";
+
+import db from "../models/index.js";
+const { Reservation } = db;
 
 /**
  * Verify if the user is the owner of the reservation or an admin
@@ -13,11 +15,20 @@ import { resa as Reservations } from "../models";
  * @returns {Function} next if the user is the owner of the reservation or an admin
  */
 export default async function verifyOwner(req, res, next) {
-	const { userId, roleId } = req.tokenDatas;
+	/**
+	 * @type {{id: number}} req.params
+	 */
 	const { id } = req.params;
+	/**
+	 * @type {{userId: number, roleId: number}} req.tokenDatas
+	 */
+	const { userId, roleId } = req.tokenDatas;
 
 	try {
-		const resa = (await Reservations.findOne({ where: { id } })).dataValues;
+		/**
+		 * @type {{userId: number}} reservation
+		 */
+		const resa = (await Reservation.findOne({ where: { id } })).dataValues;
 
 		if (resa.userId !== userId && roleId !== 2)
 			return res.status(403).send({ message: "Require to be owner or admin" });

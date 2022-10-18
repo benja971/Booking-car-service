@@ -1,10 +1,8 @@
-import { resa as Reservations } from "../../models";
-import { isOverlaping } from "./reservations.utilities";
+import db from "../../models/index.js";
+const { Reservation } = db;
+import isOverlaping from "./reservations.utilities.js";
 
 export default async function updateResa(req, res) {
-	/**
-	 * @type {Reservation}
-	 */
 	const { id, startDate, endDate, carId, userId } = req.body;
 
 	if (!id)
@@ -29,7 +27,7 @@ export default async function updateResa(req, res) {
 
 	try {
 		// get the reservation to update
-		const reservation = (await Reservations.findOne({ where: { id } })).dataValues;
+		const reservation = await Reservation.findOne({ where: { id } });
 
 		// check if reservation exists
 		if (!reservation)
@@ -39,7 +37,7 @@ export default async function updateResa(req, res) {
 
 		const newresa = {};
 
-		for (const key in reservation) {
+		for (const key in reservation.dataValues) {
 			if (req.body[key]) newresa[key] = req.body[key];
 			else newresa[key] = reservation[key];
 		}
@@ -60,7 +58,7 @@ export default async function updateResa(req, res) {
 				message: "This car is already reserved for this period",
 			});
 
-		await Reservations.update(newresa, { where: { id } });
+		await Reservation.update(newresa, { where: { id } });
 	} catch (error) {
 		return res.status(500).send({
 			message: error.message,

@@ -1,22 +1,25 @@
-const db = require("../../models");
-const resa = db.reservation;
+import db from "../../models/index.js";
+const { Sequelize, Reservation } = db;
 
 async function isOverlaping(req, res, reservation) {
+	/**
+	 * @type {{startDate: Date, endDate: Date, carId: number}} reservation
+	 */
 	const { startDate, endDate, carId } = reservation;
 	try {
 		// count all reservations for this car with date overlapping with the new reservation
-		const count = await resa.count({
+		const count = await Reservation.count({
 			where: {
 				carId,
-				[db.Sequelize.Op.or]: [
+				[Sequelize.Op.or]: [
 					{
 						startDate: {
-							[db.Sequelize.Op.between]: [new Date(startDate), new Date(endDate)],
+							[Sequelize.Op.between]: [new Date(startDate), new Date(endDate)],
 						},
 					},
 					{
 						endDate: {
-							[db.Sequelize.Op.between]: [new Date(startDate), new Date(endDate)],
+							[Sequelize.Op.between]: [new Date(startDate), new Date(endDate)],
 						},
 					},
 				],
@@ -29,4 +32,4 @@ async function isOverlaping(req, res, reservation) {
 	}
 }
 
-module.exports = { isOverlaping };
+export default { isOverlaping };

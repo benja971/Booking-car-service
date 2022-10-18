@@ -1,8 +1,5 @@
-import { Sequelize } from "sequelize";
-/**
- * @type {Sequelize.Model}
- */
-import { car as Cars } from "../../models";
+import db from "../../models/index.js";
+const { Car } = db;
 
 /**
  * Add a car to the database
@@ -14,9 +11,6 @@ import { car as Cars } from "../../models";
  * @param {Express.Response} res
  */
 export default async function createCar(req, res) {
-	/**
-	 * @type {Car}
-	 */
 	const { brand, model, year, color, price } = req.body;
 
 	if (!(brand && model && year && color && price))
@@ -29,7 +23,7 @@ export default async function createCar(req, res) {
 		 * add car to database
 		 *	@type {Car}
 		 */
-		await Cars.create({
+		await Car.create({
 			brand,
 			model,
 			year,

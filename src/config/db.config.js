@@ -1,6 +1,7 @@
-require("dotenv").config();
+import { config } from "dotenv";
+config();
 
-export default {
+const db_config = {
 	HOST: process.env.DB_HOST,
 	USER: process.env.DB_USER,
 	PASSWORD: process.env.DB_PASSWORD,
@@ -14,3 +15,5 @@ export default {
 		idle: 10000,
 	},
 };
+
+export default db_config;

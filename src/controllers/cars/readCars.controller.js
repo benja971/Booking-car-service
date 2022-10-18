@@ -2,7 +2,8 @@ import { Sequelize } from "sequelize";
 /**
  * @type {Sequelize.Model}
  */
-import { car as Cars } from "../../models";
+import db from "../../models/index.js";
+const { Car } = db;
 
 /**
  * get all cars from the database
@@ -17,7 +18,7 @@ import { car as Cars } from "../../models";
  */
 async function readCars(req, res) {
 	try {
-		return res.status(200).send(await Cars.findAll());
+		return res.status(200).send(await Car.findAll());
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
@@ -45,7 +46,7 @@ async function readCar(req, res) {
 	if (!id) return res.status(400).send({ message: "Id is required" });
 
 	try {
-		return res.status(200).send(await Cars.findOne({ where: { id } }));
+		return res.status(200).send(await Car.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}

@@ -1,6 +1,8 @@
-import { verify } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
+const { verify } = jsonwebtoken;
 
-import { user as Users } from "../models";
+import db from "../models/index.js";
+const { User } = db;
 
 /**
  * Verify if the user provided a valid token
@@ -22,7 +24,7 @@ async function verifyToken(req, res, next) {
 	try {
 		const decoded = verify(token, process.env.JWT_SECRET);
 
-		const user = await Users.findOne({
+		await User.findOne({
 			where: {
 				id: decoded.userId,
 			},
@@ -51,7 +53,7 @@ async function verifyAdmin(req, res, next) {
 	const { userId, roleId } = req.tokenDatas;
 
 	try {
-		const user = await Users.findOne({ where: { id: userId, roleId } });
+		await User.findOne({ where: { id: userId, roleId } });
 	} catch (error) {
 		return res.status(500).send({ message: "Require admin role" });
 	}
@@ -59,4 +61,4 @@ async function verifyAdmin(req, res, next) {
 	next();
 }
 
-module.exports = { verifyToken, verifyAdmin };
+export default { verifyToken, verifyAdmin };

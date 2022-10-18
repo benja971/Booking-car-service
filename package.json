@@ -5,8 +5,8 @@
 	"main": "./src/server.js",
 	"type": "module",
 	"scripts": {
-		"start": "node main",
-		"nodemon": "nodemon main --watch .",
+		"start": "node ./src/server.js",
+		"nodemon": "nodemon ./src/server.js --watch .",
 		"docker:start": "docker-compose up -d --build",
 		"docker:stop": "docker-compose down",
 		"dev": "npm run docker:stop && npm run docker:start"

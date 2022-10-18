@@ -1,15 +1,9 @@
 import { hash } from "bcrypt";
 
-/**
- * @swagger
- * @type {User}
- */
-import { user as Users } from "../../models";
+import db from "../../models/index.js";
+const { User } = db;
 
 export default async function createUser(req, res) {
-	/**
-	 * @type {User}
-	 */
 	const { name, email, password, roleId } = req.body;
 
 	// check if there is 4 parameters
@@ -21,7 +15,7 @@ export default async function createUser(req, res) {
 
 		// add user to database
 		// no need to check if the user already exists because of the unique constraint in the database
-		await Users.create({
+		await User.create({
 			name,
 			email,
 			password: crypted,

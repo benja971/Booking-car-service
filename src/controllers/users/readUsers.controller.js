@@ -1,4 +1,5 @@
-import { user as Users } from "../models";
+import db from "../../models/index.js";
+const { User } = db;
 
 async function readUsers(req, res) {
 	try {
@@ -17,7 +18,7 @@ async function readUser(req, res) {
 
 	try {
 		// find user
-		return res.status(200).send(await Users.findOne({ where: { id } }));
+		return res.status(200).send(await User.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}

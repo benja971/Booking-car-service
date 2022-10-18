@@ -1,4 +1,5 @@
-import { user as Users } from "../../models";
+import db from "../../models/index.js";
+const { User } = db;
 
 export default async function updateUser(req, res) {
 	const { id } = req.params;
@@ -13,7 +14,8 @@ export default async function updateUser(req, res) {
 	if (typeof name !== "string") return res.status(400).send({ message: "Name must be a string" });
 
 	try {
-		await Users.update({ name }, { where: { id } });
+		await User.update({ name }, { where: { id } });
+
 		return res.status(200);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });

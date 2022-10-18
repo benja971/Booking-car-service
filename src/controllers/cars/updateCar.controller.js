@@ -1,9 +1,5 @@
-import { Sequelize } from "sequelize";
-
-/**
- * @type {Sequelize.Model}
- */
-import { car as Cars } from "../../models";
+import db from "../../models/index.js";
+const { Car } = db;
 
 export default async function updateCar(req, res) {
 	const { id } = req.params;
@@ -20,7 +16,7 @@ export default async function updateCar(req, res) {
 
 	try {
 		// update car
-		await Cars.update({ model }, { where: { id } });
+		await Car.update({ model }, { where: { id } });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}

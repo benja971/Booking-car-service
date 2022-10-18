@@ -2,7 +2,8 @@ import { Sequelize } from "sequelize";
 /**
  * @type {Sequelize.Model}
  */
-import { car as Cars } from "../../models";
+import db from "../../models/index.js";
+const { Car } = db;
 
 /**
  * Delete a car from the database
@@ -28,7 +29,7 @@ export default async function deleteCar(req, res) {
 
 	try {
 		// delete car from database
-		await Cars.destroy({
+		await Car.destroy({
 			where: {
 				id,
 			},
@@ -39,5 +40,3 @@ export default async function deleteCar(req, res) {
 
 	res.status(200);
 }
-
-
