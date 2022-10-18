@@ -27,6 +27,11 @@ module.exports = async function updateResa(req, res) {
 		return res.status(400).send({ message: "endDate must be a date" });
 	}
 
+	// dates must be after today
+	if (startDate < Date.now() && startDate < Date.now()) {
+		return res.status(400).send({ message: "startDate must be after today" });
+	}
+
 	try {
 		// get the reservation to update
 		const reservation = (await Reservation.findOne({ where: { id } })).dataValues;

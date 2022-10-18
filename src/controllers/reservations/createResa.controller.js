@@ -36,5 +36,5 @@ module.exports = async function createResa(req, res) {
 		return res.status(500).send({ message: error.message });
 	}
 
-	return res.status(200);
+	return res.status(201);
 };

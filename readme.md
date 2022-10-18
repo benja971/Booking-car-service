@@ -74,6 +74,14 @@ DB_PORT = 3306
 
 ## GET /cars/:id
 
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
 -   Response 200 (json)
 
     -   Body
@@ -87,16 +95,6 @@ DB_PORT = 3306
                 "color": "red",
                 "price": 1000,
             }
-        ```
-
--   Response 404 (json)
-
-    -   Body
-
-        ```json
-        {
-        	"error": "Car not found"
-        }
         ```
 
 -   Response 500 (json)
@@ -137,15 +135,7 @@ DB_PORT = 3306
         }
         ```
 
--   Response 201 (json)
-
-    -   Body
-
-        ```json
-        {
-        	"message": "Car created successfully"
-        }
-        ```
+-   Response 201
 
 -   Response 400 (json)
 
@@ -169,6 +159,14 @@ DB_PORT = 3306
 
 ## PATCH /cars/:id
 
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
 -   Request (json)
 
     -   Body
@@ -183,15 +181,7 @@ DB_PORT = 3306
         }
         ```
 
--   Response 200 (json)
-
-    -   Body
-
-        ```json
-        {
-        	"message": "Car updated"
-        }
-        ```
+-   Response 200
 
 -   Response 400 (json)
 
@@ -200,16 +190,6 @@ DB_PORT = 3306
         ```json
         {
         	"error": "No update fields provided"
-        }
-        ```
-
--   Response 404 (json)
-
-    -   Body
-
-        ```json
-        {
-        	"error": "Car not found"
         }
         ```
 
@@ -225,25 +205,387 @@ DB_PORT = 3306
 
 ## DELETE /cars/:id
 
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Response 200
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## GET /users
+
 -   Response 200 (json)
 
     -   Body
 
         ```json
-        {
-        	"message": "Car deleted"
-        }
+        [
+        	{
+        		"id": 1,
+        		"name": "John Doe",
+        		"email": "john.doe@email.com"
+        	},
+        	{
+        		"id": 2,
+        		"name": "Jane Doe",
+        		"email": "jane.doe@email.com"
+        	}
+        ]
         ```
 
--   Response 404 (json)
+-   Response 500 (json)
 
     -   Body
 
         ```json
         {
-        	"error": "Car not found"
+        	"error": "Internal Server Error"
         }
         ```
+
+    s
+
+## GET /users/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Response 200 (json)
+
+    -   Body
+
+        ```js
+            {
+                "id": 1,
+                "brand": "Audi",
+                "model": "A3",
+                "year": 2019,
+                "color": "red",
+                "price": 1000,
+            }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+            {
+                "error": "No id provided" ||
+                "error": "Invalid id" ||
+                "error": "Invalid id type" ||
+            }
+        ```
+
+## POST /user
+
+-   Request (json)
+
+    -   Body
+
+        ```json
+        {
+        	"name": "John Doe",
+        	"email": "john.doe@email.com",
+        	"password": "userpassword"
+        }
+        ```
+
+-   Response 201
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Must provide all fields"
+        }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## PATCH /users/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Request (json)
+
+    -   Body
+
+        ```json
+        {
+        	"name": "John Doe",
+        	"email": "john.doe@email.com",
+        	"password": "userpassword"
+        }
+        ```
+
+-   Response 200
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "No update fields provided"
+        }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## DELETE /users/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Response 200
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## GET /reservations
+
+-   Response 200 (json)
+
+    -   Body
+
+        ```json
+        [
+        	{
+        		"id": 1,
+        		"name": "John Doe",
+        		"email": "john.doe@email.com"
+        	},
+        	{
+        		"id": 2,
+        		"name": "Jane Doe",
+        		"email": "jane.doe@email.com"
+        	}
+        ]
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+    s
+
+## GET /reservations/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Response 200 (json)
+
+    -   Body
+
+        ```js
+            {
+                "id": 1,
+                "brand": "Audi",
+                "model": "A3",
+                "year": 2019,
+                "color": "red",
+                "price": 1000,
+            }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+            {
+                "error": "No id provided" ||
+                "error": "Invalid id" ||
+                "error": "Invalid id type" ||
+            }
+        ```
+
+## POST /reservation
+
+-   Request (json)
+
+    -   Body
+
+        ```json
+        {
+        	"startDate": "2020-01-01",
+        	"endDate": "2020-01-02",
+        	"carId": 1,
+        	"userId": 1
+        }
+        ```
+
+-   Response 201
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Must provide all fields", ||
+            "error": "Dates must be after today", ||
+            "error": "Start date must be before end date", ||
+            "error": "Car is not available for these dates", ||
+        }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## PATCH /reservations/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Request (json)
+
+    -   Body
+
+        ```json
+        {
+        	"startDate": "2020-01-01",
+        	"endDate": "2020-01-02",
+        	"carId": 1,
+        	"userId": 1
+        }
+        ```
+
+-   Response 200
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "No update fields provided", ||
+            "error": "Dates must be after today", ||
+            "error": "Start date must be before end date", ||
+            "error": "Car is not available for these dates", ||
+        }
+        ```
+
+-   Response 500 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Internal Server Error"
+        }
+        ```
+
+## DELETE /reservations/:id
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Response 200
 
 -   Response 500 (json)
 
