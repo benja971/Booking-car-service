@@ -1,4 +1,4 @@
-import { resa as Reservations } from "../../models";
+const { Reservation } = require("../../models");
 
 export default async function deleteResa(req, res) {
 	/**
@@ -12,7 +12,7 @@ export default async function deleteResa(req, res) {
 
 	try {
 		// delete reservation
-		await Reservations.destroy({ where: { id } });
+		await Reservation.destroy({ where: { id } });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}

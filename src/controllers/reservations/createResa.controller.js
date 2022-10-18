@@ -1,7 +1,7 @@
-import { resa as Reservations } from "../../models";
-import { isOverlaping } from "./reservations.utilities";
+const { Reservation } = require("../../models");
+const { isOverlaping } = require("./reservations.utilities");
 
-export default async function createResa(req, res) {
+module.exports = async function createResa(req, res) {
 	/**
 	 * @type {Reservation}
 	 */
@@ -26,17 +26,15 @@ export default async function createResa(req, res) {
 	// check if userId is a number
 	if (isNaN(userId)) return res.status(400).send({ message: "User id must be a number" });
 
-	const isOverlapingResa = await isOverlaping(req, res, req.body);
-
 	// check if there is no overlapping reservation
-	if (isOverlapingResa)
+	if (await isOverlaping(req, res, req.body))
 		return res.status(400).send({ message: "This car is already reserved for this period" });
 
 	try {
-		await Reservations.create({ startDate, endDate, carId, userId });
+		await Reservation.create({ startDate, endDate, carId, userId });
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 
 	return res.status(200);
-}
+};

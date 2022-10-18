@@ -3,7 +3,6 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "./src/server.js",
-	"type": "module",
 	"scripts": {
 		"start": "node main",
 		"nodemon": "nodemon main --watch .",

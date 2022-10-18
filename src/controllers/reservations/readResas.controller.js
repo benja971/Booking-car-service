@@ -1,8 +1,8 @@
-import { resa as Reservations } from "../../models";
+const { Reservation } = require("../../models");
 
 async function readResas(req, res) {
 	try {
-		return res.status(200).send(await Reservations.findAll());
+		return res.status(200).send(await Reservation.findAll());
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
@@ -17,10 +17,10 @@ async function readResa(req, res) {
 
 	try {
 		// find reservation
-		return res.status(200).send(await Reservations.findOne({ where: { id } }));
+		return res.status(200).send(await Reservation.findOne({ where: { id } }));
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
 }
 
-export default { readResa, readResas };
+module.exports = { readResa, readResas };

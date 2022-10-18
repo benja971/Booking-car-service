@@ -1,7 +1,7 @@
-import { resa as Reservations } from "../../models";
-import { isOverlaping } from "./reservations.utilities";
+const { Reservation } = require("../../models");
+const { isOverlaping } = require("./reservations.utilities");
 
-export default async function updateResa(req, res) {
+module.exports = async function updateResa(req, res) {
 	/**
 	 * @type {Reservation}
 	 */
@@ -29,7 +29,7 @@ export default async function updateResa(req, res) {
 
 	try {
 		// get the reservation to update
-		const reservation = (await Reservations.findOne({ where: { id } })).dataValues;
+		const reservation = (await Reservation.findOne({ where: { id } })).dataValues;
 
 		// check if reservation exists
 		if (!reservation)
@@ -52,15 +52,13 @@ export default async function updateResa(req, res) {
 		if (new Date(newresa.startDate) >= new Date(newresa.endDate))
 			return res.status(400).send({ message: "Start date must be before end date" });
 
-		const isOverlapingResa = await isOverlaping(req, res, newresa);
-
 		// check if there is no overlapping reservation
-		if (isOverlapingResa)
+		if (await isOverlaping(req, res, newresa))
 			return res.status(400).send({
 				message: "This car is already reserved for this period",
 			});
 
-		await Reservations.update(newresa, { where: { id } });
+		await Reservation.update(newresa, { where: { id } });
 	} catch (error) {
 		return res.status(500).send({
 			message: error.message,
@@ -68,4 +66,4 @@ export default async function updateResa(req, res) {
 	}
 
 	res.status(200);
-}
+};
