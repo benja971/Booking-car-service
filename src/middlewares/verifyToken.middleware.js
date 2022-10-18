@@ -1,5 +1,5 @@
 const { verify } = require("jsonwebtoken");
-const { User } = require("../../models");
+const { User } = require("../models");
 /**
  * Verify if the user provided a valid token
  * @param {Request} req

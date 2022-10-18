@@ -47,4 +47,4 @@ async function readCar(req, res) {
 	}
 }
 
-export default { readCars, readCar };
+module.exports = { readCars, readCar };

@@ -21,7 +21,7 @@ const verifyUser = require("./middlewares/verifyUser.middleware");
 /**
  * @param {Express.Application} app
  */
-function routes(app) {
+module.exports = function routes(app) {
 	app.post("/car", [verifyToken, verifyAdmin], createCar);
 	app.patch("/cars/update/:id", [verifyToken, verifyAdmin], updateCar);
 	app.delete("/cars/delete/:id", [verifyToken, verifyAdmin], deleteCar);
@@ -41,6 +41,4 @@ function routes(app) {
 	app.get("/reservations/:id", [verifyToken, verifyOwner], readResa);
 
 	app.post("/login", login);
-}
-
-export default routes;
+};

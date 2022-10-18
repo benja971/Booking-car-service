@@ -1,6 +1,6 @@
 const { Reservation } = require("../../models");
 
-export default async function deleteResa(req, res) {
+module.exports = async function deleteResa(req, res) {
 	/**
 	 * @type {Reservation}
 	 */
@@ -18,4 +18,4 @@ export default async function deleteResa(req, res) {
 	}
 
 	return res.status(200);
-}
+};

@@ -1,5 +1,5 @@
 const { verifyAdmin } = require("./verifyToken.middleware");
-const { User } = require("../../models");
+const { User } = require("../models");
 
 /**
  * Allow or not to reaa, update, delete a user if user is admin or the user itself

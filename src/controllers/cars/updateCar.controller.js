@@ -1,6 +1,6 @@
 const { Car } = require("../../models");
 
-export default async function updateCar(req, res) {
+module.exports = async function updateCar(req, res) {
 	const { id } = req.params;
 	const { model } = req.body;
 
@@ -21,4 +21,4 @@ export default async function updateCar(req, res) {
 	}
 
 	return res.status(200).send({ message: "Car updated successfully" });
-}
+};
