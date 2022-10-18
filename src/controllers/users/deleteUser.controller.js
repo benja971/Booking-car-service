@@ -1,6 +1,6 @@
-import { user as Users } from "../../models";
+const { User } = require("../../models");
 
-export default async function deleteUser(req, res) {
+module.exports = async function deleteUser(req, res) {
 	/**
 	 * @type {User}
 	 */
@@ -15,7 +15,7 @@ export default async function deleteUser(req, res) {
 
 	try {
 		// delete user from database
-		await Users.destroy({
+		await User.destroy({
 			where: {
 				id,
 			},
@@ -25,4 +25,4 @@ export default async function deleteUser(req, res) {
 	}
 
 	res.status(200);
-}
+};

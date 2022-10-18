@@ -1,14 +1,22 @@
-import { compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
-import { user as User } from "../models";
+const { compare } = require("bcrypt");
+const { sign } = require("jsonwebtoken");
+const { User } = require("../../models");
 
-export default async function createToken(req, res) {
+module.exports = async function createToken(req, res) {
+	/**
+	 * @type {{email: string, password: string}}
+	 */
 	const { email, password } = req.body;
 
 	try {
-		const user = await User.findOne({
-			where: { email },
-		});
+		/**
+		 * @type {{id: number, name: string, email: string, password: string}} user
+		 */
+		const user = (
+			await User.findOne({
+				where: { email },
+			})
+		).dataValues;
 
 		if (!user) return res.status(404).send({ message: "User not found" });
 
@@ -22,10 +30,10 @@ export default async function createToken(req, res) {
 			expiresIn: "1h",
 		});
 
-		delete user.dataValues.password;
+		delete user.password;
 
-		res.send({ user: user.dataValues, token });
+		res.send({ user, token });
 	} catch (error) {
 		res.status(500).send({ message: "Internal server error" });
 	}
-}
+};

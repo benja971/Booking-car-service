@@ -1,14 +1,9 @@
-import { hash } from "bcrypt";
+const { hash } = require("bcrypt");
+const { User } = require("../../models");
 
-/**
- * @swagger
- * @type {User}
- */
-import { user as Users } from "../../models";
-
-export default async function createUser(req, res) {
+module.exports = async function createUser(req, res) {
 	/**
-	 * @type {User}
+	 * @type {{name: string, email: string, password: string, roleId: number}}
 	 */
 	const { name, email, password, roleId } = req.body;
 
@@ -21,7 +16,7 @@ export default async function createUser(req, res) {
 
 		// add user to database
 		// no need to check if the user already exists because of the unique constraint in the database
-		await Users.create({
+		await User.create({
 			name,
 			email,
 			password: crypted,
@@ -32,4 +27,4 @@ export default async function createUser(req, res) {
 	}
 
 	res.status(200);
-}
+};
