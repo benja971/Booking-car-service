@@ -1,8 +1,4 @@
-import { Sequelize } from "sequelize";
-/**
- * @type {Sequelize.Model}
- */
-import { car as Cars } from "../../models";
+const { Car } = require("../../models");
 
 /**
  * Add a car to the database
@@ -13,7 +9,7 @@ import { car as Cars } from "../../models";
  * @param {Express.Request} req
  * @param {Express.Response} res
  */
-export default async function createCar(req, res) {
+module.exports = async function createCar(req, res) {
 	/**
 	 * @type {Car}
 	 */
@@ -29,7 +25,7 @@ export default async function createCar(req, res) {
 		 * add car to database
 		 *	@type {Car}
 		 */
-		await Cars.create({
+		await Car.create({
 			brand,
 			model,
 			year,
@@ -41,4 +37,4 @@ export default async function createCar(req, res) {
 	} catch (error) {
 		return res.status(500).send({ message: "Error while creating car" });
 	}
-}
+};

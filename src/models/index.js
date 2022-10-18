@@ -1,8 +1,6 @@
-const config = require("../config/db.config.js");
+const config = require("../config/db.Config.js");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
-
-const db = require("./models");
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	host: config.HOST,
@@ -21,50 +19,50 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
  * @type {{
  * 	sequelize: sequelize,
  * 	Sequelize: Sequelize,
- * 	user: sequelize.Model,
- * 	car: sequelize.Model,
- * 	reservation: sequelize.Model,
- * 	role: sequelize.Model
+ * 	User: sequelize.Model,
+ * 	Car: sequelize.Model,
+ * 	Reservation: sequelize.Model,
+ * 	Role: sequelize.Model
  * }}
  */
 const db = {
 	sequelize,
 	Sequelize,
-	user: require("./user.model.js")(sequelize, Sequelize),
-	role: require("./role.model.js")(sequelize, Sequelize),
-	car: require("./car.model.js")(sequelize, Sequelize),
-	reservation: require("./reservation.model.js")(sequelize, Sequelize),
+	User: require("./user.model.js")(sequelize, Sequelize),
+	Role: require("./role.model.js")(sequelize, Sequelize),
+	Car: require("./car.model.js")(sequelize, Sequelize),
+	Reservation: require("./resa.model.js")(sequelize, Sequelize),
 };
 
 // there is a user in a reservation
-db.reservation.belongsTo(db.user, {
+db.Reservation.belongsTo(db.User, {
 	foreignKey: "userId",
 });
 
 // there is a car in a reservation
-db.reservation.belongsTo(db.car, {
+db.Reservation.belongsTo(db.Car, {
 	foreignKey: "carId",
 });
 
 // there is a role in a user
-db.user.belongsTo(db.role, {
+db.User.belongsTo(db.Role, {
 	foreignKey: "roleId",
 });
 
 // delete all reservations when a user is deleted
-db.user.hasMany(db.reservation, {
+db.User.hasMany(db.Reservation, {
 	foreignKey: "userId",
 	onDelete: "cascade",
 });
 
 // delete all reservations when a car is deleted
-db.car.hasMany(db.reservation, {
+db.Car.hasMany(db.Reservation, {
 	foreignKey: "carId",
 	onDelete: "cascade",
 });
 
 // delete all users when a role is deleted
-db.role.hasMany(db.user, {
+db.Role.hasMany(db.User, {
 	foreignKey: "roleId",
 	onDelete: "cascade",
 });
@@ -73,37 +71,37 @@ db.sequelize
 	.sync({ force: true })
 	.then(async () => {
 		// create roles
-		db.role.create({
+		db.Role.create({
 			name: "user",
 		});
 
-		db.role.create({
+		db.Role.create({
 			name: "admin",
 		});
 
 		// create users
-		db.user.create({
+		db.User.create({
 			name: "john",
 			email: "john@gmail.com",
 			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
-		db.user.create({
+		db.User.create({
 			name: "jane",
 			email: "jane@gmail.com",
 			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
-		db.user.create({
+		db.User.create({
 			name: "jack",
 			email: "jack@gmail.com",
 			password: await bcrypt.hash("user", 10),
 			roleId: 1,
 		});
 
-		db.user.create({
+		db.User.create({
 			name: "admin",
 			email: "arandomadmin@gmail.com",
 			password: await bcrypt.hash("admin", 10),
@@ -111,7 +109,7 @@ db.sequelize
 		});
 
 		// create cars
-		db.car.create({
+		db.Car.create({
 			brand: "Audi",
 			model: "A3",
 			year: 2019,
@@ -119,7 +117,7 @@ db.sequelize
 			price: 200,
 		});
 
-		db.car.create({
+		db.Car.create({
 			brand: "Audi",
 			model: "A4",
 			year: 2019,
@@ -127,7 +125,7 @@ db.sequelize
 			price: 200,
 		});
 
-		db.car.create({
+		db.Car.create({
 			brand: "Renault",
 			model: "Clio",
 			year: 2019,
@@ -135,7 +133,7 @@ db.sequelize
 			price: 100,
 		});
 
-		db.reservation.create({
+		db.Reservation.create({
 			userId: 2,
 			carId: 1,
 			startDate: new Date().addDays(1),

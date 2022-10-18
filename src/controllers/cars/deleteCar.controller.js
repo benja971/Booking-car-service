@@ -1,8 +1,4 @@
-import { Sequelize } from "sequelize";
-/**
- * @type {Sequelize.Model}
- */
-import { car as Cars } from "../../models";
+const { Car } = require("../../models");
 
 /**
  * Delete a car from the database
@@ -13,7 +9,7 @@ import { car as Cars } from "../../models";
  * @param {Express.Request} req
  * @param {Express.Response} res
  */
-export default async function deleteCar(req, res) {
+module.exports = async function deleteCar(req, res) {
 	/**
 	 * @type {Car}
 	 */
@@ -28,7 +24,7 @@ export default async function deleteCar(req, res) {
 
 	try {
 		// delete car from database
-		await Cars.destroy({
+		await Car.destroy({
 			where: {
 				id,
 			},
@@ -38,6 +34,4 @@ export default async function deleteCar(req, res) {
 	}
 
 	res.status(200);
-}
-
-
+};

@@ -1,5 +1,5 @@
-import { verifyOwner } from "../middlewares";
-import { resa as Reservations } from "../models";
+const verifyOwner = require("../middlewares/verifyOwner.middleware");
+const Reservation = require("../models");
 
 /**
  * Verify if the user is the owner of the reservation or an admin
