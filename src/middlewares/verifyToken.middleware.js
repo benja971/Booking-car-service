@@ -1,7 +1,5 @@
-import { verify } from "jsonwebtoken";
-
-import { user as Users } from "../models";
-
+const { verify } = require("jsonwebtoken");
+const { User } = require("../../models");
 /**
  * Verify if the user provided a valid token
  * @param {Request} req
@@ -20,14 +18,12 @@ async function verifyToken(req, res, next) {
 	if (!token) return res.status(401).send({ message: "No token provided" }); // user need to be authenticated
 
 	try {
+		/**
+		 * @type {{userId: number, roleId: number}} decoded
+		 */
 		const decoded = verify(token, process.env.JWT_SECRET);
 
-		const user = await Users.findOne({
-			where: {
-				id: decoded.userId,
-			},
-		});
-
+		await User.findOne({ where: { id: decoded.userId } });
 		req.tokenDatas = decoded;
 	} catch (error) {
 		return res.status(403).send({ message: "Unauthorized" });
@@ -51,7 +47,7 @@ async function verifyAdmin(req, res, next) {
 	const { userId, roleId } = req.tokenDatas;
 
 	try {
-		const user = await Users.findOne({ where: { id: userId, roleId } });
+		await User.findOne({ where: { id: userId, roleId } });
 	} catch (error) {
 		return res.status(500).send({ message: "Require admin role" });
 	}

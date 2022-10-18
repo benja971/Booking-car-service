@@ -1,4 +1,4 @@
-const verifyOwner = require("../middlewares/verifyOwner.middleware");
+const verifyAdmin = require("../middlewares/verifyToken.middleware");
 const Reservation = require("../models");
 
 /**
@@ -12,12 +12,12 @@ const Reservation = require("../models");
  *
  * @returns {Function} next if the user is the owner of the reservation or an admin
  */
-export default async function verifyOwner(req, res, next) {
+module.exports = async function verifyOwner(req, res, next) {
 	const { userId, roleId } = req.tokenDatas;
 	const { id } = req.params;
 
 	try {
-		const resa = (await Reservations.findOne({ where: { id } })).dataValues;
+		const resa = (await Reservation.findOne({ where: { id } })).dataValues;
 
 		if (resa.userId !== userId && roleId !== 2)
 			return res.status(403).send({ message: "Require to be owner or admin" });
@@ -28,4 +28,4 @@ export default async function verifyOwner(req, res, next) {
 	}
 
 	next();
-}
+};
