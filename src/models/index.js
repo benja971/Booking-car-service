@@ -1,6 +1,8 @@
-const config = require("../config/db.Config.js");
+const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+
+console.log(config);
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	host: config.HOST,
@@ -15,15 +17,17 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	},
 });
 
+// console.log("sequelize", sequelize);
+
 /**
- * @type {{
- * 	sequelize: sequelize,
- * 	Sequelize: Sequelize,
- * 	User: sequelize.Model,
- * 	Car: sequelize.Model,
- * 	Reservation: sequelize.Model,
- * 	Role: sequelize.Model
- * }}
+ * @typedef {Database} db
+ * @property {sequelize} sequelize
+ * @property {Sequelize} Sequelize
+ * @property {sequelize.Model} User
+ * @property {sequelize.Model} Car
+ * @property {sequelize.Model} Reservation
+ * @property {sequelize.Model} Role
+ *
  */
 const db = {
 	sequelize,

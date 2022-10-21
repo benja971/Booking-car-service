@@ -29,7 +29,7 @@ services:
         ports:
             - "${PORT}:${PORT}"
 
-        command: npm run nodemon
+        command: npm run start
 
 volumes:
     carsexpress:

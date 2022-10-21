@@ -1,11 +1,11 @@
-FROM node:18.8.0
+FROM node:lts-alpine
 
 WORKDIR /code
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "nodemon"]
+CMD ["npm", "run", "start"]
