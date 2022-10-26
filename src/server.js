@@ -1,5 +1,7 @@
 const express = require("express");
 const compression = require("compression");
+const fileUpload = require("express-fileupload");
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -17,7 +19,14 @@ Date.prototype.addDays = function (days) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(fileUpload());
 app.use(compression());
+
+app.use(
+	cors({
+		origin: "*",
+	})
+);
 
 routes(app);
 

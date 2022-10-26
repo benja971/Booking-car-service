@@ -5,7 +5,7 @@
 	"main": "./src/server.js",
 	"scripts": {
 		"start": "node ./src/server.js",
-		"startW": "node ./src/server.js --watch .",
+		"nodemon": "nodemon ./src/server.js --legacy-watch",
 		"docker:start": "docker-compose up -d --build",
 		"docker:stop": "docker-compose down",
 		"dev": "npm run docker:stop && npm run docker:start"
@@ -16,10 +16,16 @@
 	"dependencies": {
 		"bcrypt": "^5.1.0",
 		"compression": "^1.7.4",
+		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.2",
+		"express-fileupload": "^1.4.0",
+		"fs": "^0.0.1-security",
 		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.3",
 		"sequelize": "6.25.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.20"
 	}
 }

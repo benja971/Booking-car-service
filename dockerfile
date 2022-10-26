@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:18.11.0
 
 WORKDIR /code
 
@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "nodemon"]
