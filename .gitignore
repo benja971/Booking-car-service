@@ -1,6 +1,9 @@
 # Docker
 /mysql
 
+# Images
+/public/assets/images/cars
+
 # Logs
 logs
 *.log

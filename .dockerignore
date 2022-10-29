@@ -1,12 +1,12 @@
 **/.classpath
 **/.dockerignore
-**/.git
-**/.gitignore
 **/.project
 **/.settings
 **/.toolstarget
 **/.vs
 **/.vscode
+# **/.git
+# **/.gitignore
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
