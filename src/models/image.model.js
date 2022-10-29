@@ -17,7 +17,6 @@ module.exports = (sequelize, Sequelize) => {
 		path: {
 			type: Sequelize.STRING,
 			notNull: true,
-			defaultValue: "/assets/images/cars/",
 		},
 	});
 

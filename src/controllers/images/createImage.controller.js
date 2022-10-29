@@ -10,22 +10,30 @@ const { Image } = require("../../models");
  */
 async function createImage(req, res) {
 	/**
-	 * @typedef {{name: string, carId: number}} image
-	 * @type {image} req.body
+	 * @type {{id: number}} req.params
 	 */
-	const { name, carId } = req.body;
+	const { id: carId } = req.params;
 
+	/**
+	 * @type {{name: string}} req.body
+	 */
+	const { name } = req.body;
+
+	/**
+	 * @type {{file: File}} req.files
+	 */
 	const { file } = req?.files;
 
 	const ext = file.name.split(".").pop();
-	const path = `./public/assets/images/cars/${name}.${ext}`;
+	const path = `./public/assets/images/cars/`;
 
 	try {
 		// save the image locally
-		fs.writeFileSync(path, file.data);
+		fs.writeFileSync(`${path}${name}.${ext}`, file.data);
 
 		/**
-		 * @type {image} image
+		 * @typedef {{id: number, carId: number, name: string, path: string}} Image
+		 * @type {Image} image
 		 */
 		const image = await Image.create({
 			name,

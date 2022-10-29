@@ -17,6 +17,7 @@ const login = require("./controllers/tokens/login.controller");
 const { verifyToken, verifyAdmin } = require("./middlewares/verifyToken.middleware");
 const verifyOwner = require("./middlewares/verifyOwner.middleware");
 const verifyUser = require("./middlewares/verifyUser.middleware");
+const createImage = require("./controllers/images/createImage.controller");
 
 /**
  * @param {Express.Application} app
@@ -40,5 +41,7 @@ module.exports = function routes(app) {
 	app.get("/reservations", [verifyToken, verifyAdmin], readResas);
 	app.get("/reservations/:id", [verifyToken, verifyOwner], readResa);
 
+	app.post("/cars/:id/image", [verifyToken, verifyAdmin], createImage);
+	
 	app.post("/login", login);
 };
