@@ -7,7 +7,7 @@ form.addEventListener("submit", async (e) => {
 
 	console.log(data);
 
-	const res = await fetch("http://localhost:8080/cars/1/image", {
+	const res = await fetch("http://localhost:8080/cars/3/image", {
 		method: "POST",
 		body: formData,
 		headers: {

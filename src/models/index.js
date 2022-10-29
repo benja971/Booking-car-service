@@ -129,6 +129,11 @@ db.sequelize
 			year: 2019,
 			color: "black",
 			price: 200,
+			exposition_color: "#000000",
+			numberplate: "AA-123-AA",
+			doors: 5,
+			motorization: "1.6",
+			energy: "diesel",
 		});
 
 		db.Car.create({
@@ -137,14 +142,24 @@ db.sequelize
 			year: 2019,
 			color: "black",
 			price: 200,
+			exposition_color: "#000000",
+			numberplate: "BB-258-BB",
+			doors: 5,
+			motorization: "2.0",
+			energy: "diesel",
 		});
 
 		db.Car.create({
 			brand: "Renault",
 			model: "Clio",
 			year: 2019,
-			color: "black",
+			color: "white",
 			price: 100,
+			exposition_color: "#ffffff",
+			numberplate: "CC-369-CC",
+			doors: 3,
+			motorization: "1.2",
+			energy: "diesel",
 		});
 
 		db.Reservation.create({

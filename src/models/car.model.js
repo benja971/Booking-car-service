@@ -29,6 +29,29 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.DECIMAL(10, 2),
 			allowNull: false,
 		},
+		exposition_color: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
+		numberplate: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
+		doors: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+		},
+		motorization: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+		},
+		energy: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
 	});
 
 	return Car;

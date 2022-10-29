@@ -18,7 +18,7 @@ Date.prototype.addDays = function (days) {
 };
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 app.use(compression());
 
@@ -27,10 +27,6 @@ app.use(
 		origin: "*",
 	})
 );
-
-app.use((req, res, next) => {
-	console.log(`${req.method} ${req.url}`);
-});
 
 routes(app);
 
