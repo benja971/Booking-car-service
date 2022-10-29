@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const { Image } = require("../../models");
+const {Image} = require("../../models");
 
 /**
  * Add a new image of a car to the database
@@ -12,22 +12,22 @@ async function createImage(req, res) {
 	/**
 	 * @type {{id: number}} req.params
 	 */
-	const { id: carId } = req.params;
+	const {id: carId} = req.params;
 
 	/**
 	 * @type {{name: string}} req.body
 	 */
-	const { name } = req.body;
+	const {name} = req.body;
 
 	/**
 	 * @type {{file: File}} req.files
 	 */
-	const { file } = req?.files;
-
-	const ext = file.name.split(".").pop();
-	const path = `./public/assets/images/cars/`;
+	const {file} = req?.files;
 
 	try {
+		const ext = file.name.split(".").pop();
+		const path = `./public/assets/images/cars/`;
+
 		// save the image locally
 		fs.writeFileSync(`${path}${name}.${ext}`, file.data);
 
@@ -44,10 +44,10 @@ async function createImage(req, res) {
 		// only if it was saved locally
 		if (fs.existsSync(path)) fs.unlinkSync(path);
 
-		res.status(500).send({ message: "Internal Server Error" });
+		res.status(500).send({message: "Internal Server Error"});
 	}
 
-	res.status(201).send({ message: "Image created successfully" });
+	res.status(201).send({message: "Image created successfully"});
 }
 
 module.exports = createImage;

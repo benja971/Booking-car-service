@@ -1,19 +1,14 @@
 **/.classpath
-**/.dockerignore
 **/.project
 **/.settings
 **/.toolstarget
 **/.vs
 **/.vscode
-# **/.git
-# **/.gitignore
 **/*.*proj.user
 **/*.dbmdl
 **/*.jfm
 **/charts
-**/docker-compose*
 **/compose*
-**/Dockerfile*
 **/node_modules
 **/npm-debug.log
 **/obj
