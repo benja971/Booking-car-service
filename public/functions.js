@@ -12,7 +12,7 @@ form.addEventListener("submit", async (e) => {
 		body: formData,
 		headers: {
 			Authorization:
-				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInJvbGVJZCI6MiwiaWF0IjoxNjY3MDc3NjE5LCJleHAiOjE2NjcwODEyMTl9.3_5YZ7az9rJZ1FWuHT5oVtRejG7Tr2v4b_oNmH1Bwe4",
+				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInJvbGVJZCI6MiwiaWF0IjoxNjY3MDgyMjM1LCJleHAiOjE2NjcwODU4MzV9.RTgfW2uRVrJyYExUhOre1jwDNgmCydslTYf2y-LehWU",
 		},
 	});
 
@@ -20,3 +20,30 @@ form.addEventListener("submit", async (e) => {
 
 	console.log(json);
 });
+
+const get = async () => {
+	console.log(
+		JSON.stringify({
+			options: {
+				brand: "Audi",
+			},
+		})
+	);
+
+	const res = await fetch("http://localhost:8080/cars", {
+		method: "POST",
+		body: JSON.stringify({
+			brand: "Audi",
+		}),
+		headers: {
+			Authorization:
+				"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsInJvbGVJZCI6MiwiaWF0IjoxNjY3MDgyMjM1LCJleHAiOjE2NjcwODU4MzV9.RTgfW2uRVrJyYExUhOre1jwDNgmCydslTYf2y-LehWU",
+		},
+	});
+
+	console.log(res);
+
+	const json = await res.json();
+
+	console.log(json);
+};

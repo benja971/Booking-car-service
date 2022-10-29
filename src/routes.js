@@ -26,7 +26,7 @@ module.exports = function routes(app) {
 	app.post("/car", [verifyToken, verifyAdmin], createCar);
 	app.patch("/cars/update/:id", [verifyToken, verifyAdmin], updateCar);
 	app.delete("/cars/delete/:id", [verifyToken, verifyAdmin], deleteCar);
-	app.get("/cars", [verifyToken, verifyAdmin], readCars);
+	app.post("/cars", [verifyToken, verifyAdmin], readCars);
 	app.get("/cars/:id", verifyToken, readCar);
 
 	app.post("/user", createUser);
@@ -42,6 +42,6 @@ module.exports = function routes(app) {
 	app.get("/reservations/:id", [verifyToken, verifyOwner], readResa);
 
 	app.post("/cars/:id/image", [verifyToken, verifyAdmin], createImage);
-	
+
 	app.post("/login", login);
 };

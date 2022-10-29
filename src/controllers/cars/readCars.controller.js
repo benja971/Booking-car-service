@@ -1,7 +1,10 @@
-const {Car, Image} = require("../../models");
+const { Car, Image } = require("../../models");
 
 /**
  * get all cars from the database
+ *
+ * @typedef {{brand: string, model: string, year: number, color: string, price: number, exposition_color: string, numberplate: string, doors: number, motorization: number, energy: string}} Car
+ *
  *
  * @group Cars
  * @route GET /cars
@@ -12,11 +15,21 @@ const {Car, Image} = require("../../models");
  * @returns {Array<Car>} 200 - An array of cars
  */
 async function readCars(req, res) {
+	/**
+	 * @type {Car}
+	 */
+	const options = req.body.options && JSON.parse(req.body.options);
+
 	try {
 		// join all cars and images on Image.carId = Car.id
-		return res.status(200).send(await Car.findAll({include: Image}));
+		return res.status(200).send(
+			await Car.findAll({
+				include: Image,
+				where: options || {},
+			})
+		);
 	} catch (error) {
-		return res.status(500).send({message: error.message});
+		return res.status(500).send({ message: error.message });
 	}
 }
 
@@ -35,17 +48,17 @@ async function readCar(req, res) {
 	/**
 	 * @type {Car}
 	 */
-	const {id} = req.params;
+	const { id } = req.params;
 
-	if (isNaN(id)) return res.status(400).send({message: "Id must be a number"});
+	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
 
-	if (!id) return res.status(400).send({message: "Id is required"});
+	if (!id) return res.status(400).send({ message: "Id is required" });
 
 	try {
-		return res.status(200).send(await Car.findOne({where: {id}, include: Image}));
+		return res.status(200).send(await Car.findOne({ where: { id }, include: Image }));
 	} catch (error) {
-		return res.status(500).send({message: error.message});
+		return res.status(500).send({ message: error.message });
 	}
 }
 
-module.exports = {readCars, readCar};
+module.exports = { readCars, readCar };
