@@ -7,7 +7,8 @@
 		"start": "node ./src/server.js",
 		"docker-up": "docker-compose up -d",
 		"docker-down": "docker-compose down",
-		"dev": "pnpm run docker-down && pnpm run docker-up"
+		"dev": "pnpm run docker-down && pnpm run docker-up",
+		"nodemon": "nodemon ./src/server.js"
 	},
 	"keywords": [
     "booking",

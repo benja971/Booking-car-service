@@ -44,8 +44,9 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 		},
 		motorization: {
-			type: Sequelize.INTEGER,
+			type: Sequelize.STRING,
 			allowNull: false,
+			trim: true,
 		},
 		energy: {
 			type: Sequelize.STRING,
