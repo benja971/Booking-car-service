@@ -126,7 +126,7 @@ db.sequelize
 		});
 
 		// create cars
-		db.Car.create({
+		await db.Car.create({
 			brand: "Audi",
 			model: "A3",
 			year: 2019,
@@ -139,7 +139,7 @@ db.sequelize
 			energy: "diesel",
 		});
 
-		db.Car.create({
+		await db.Car.create({
 			brand: "Audi",
 			model: "A4",
 			year: 2019,
@@ -152,7 +152,7 @@ db.sequelize
 			energy: "diesel",
 		});
 
-		db.Car.create({
+		await db.Car.create({
 			brand: "Renault",
 			model: "Clio",
 			year: 2019,
