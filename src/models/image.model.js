@@ -14,8 +14,8 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.STRING,
 			notNull: true,
 		},
-		path: {
-			type: Sequelize.STRING,
+		base64: {
+			type: Sequelize.TEXT,
 			notNull: true,
 		},
 	});

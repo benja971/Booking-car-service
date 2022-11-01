@@ -1,7 +1,9 @@
-const { Car } = require("../../models");
+const { Car, Image } = require("../../models");
 
 /**
  * get all cars from the database
+ *
+ * @typedef {{brand: string, model: string, year: number, color: string, price: number}} Car
  *
  * @group Cars
  * @route GET /cars
@@ -12,8 +14,18 @@ const { Car } = require("../../models");
  * @returns {Array<Car>} 200 - An array of cars
  */
 async function readCars(req, res) {
+	/**
+	 * @type {Car} options
+	 */
+	const options = JSON.parse(req?.body?.options) || {};
+
 	try {
-		return res.status(200).send(await Car.findAll());
+		return res.status(200).send(
+			await Car.findAll({
+				include: [Image],
+				where: options,
+			})
+		);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}
@@ -41,7 +53,14 @@ async function readCar(req, res) {
 	if (!id) return res.status(400).send({ message: "Id is required" });
 
 	try {
-		return res.status(200).send(await Car.findOne({ where: { id } }));
+		return res.status(200).send(
+			await Car.findOne({
+				where: {
+					id,
+				},
+				include: [Image],
+			})
+		);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
 	}

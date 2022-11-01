@@ -2,8 +2,11 @@ const fs = require("fs");
 
 const { Image } = require("../../models");
 
+const { encodeImageToBase64 } = require("./images.utilities");
+
 /**
  * Add a new image of a car to the database
+ * turn the image into a base64 string
  *
  * @param {import("express").Request} req
  * @param {import("express").Response} res
@@ -24,30 +27,23 @@ async function createImage(req, res) {
 	 */
 	const { file } = req?.files;
 
-	const ext = file.name.split(".").pop();
-	const path = `./public/assets/images/cars/`;
+	if (!(name && carId && file))
+		return res.status(400).json({ message: "Missing required fields" });
 
 	try {
-		// save the image locally
-		fs.writeFileSync(`${path}${name}.${ext}`, file.data);
-
-		/**
-		 * @typedef {{id: number, carId: number, name: string, path: string}} Image
-		 * @type {Image} image
-		 */
 		const image = await Image.create({
 			name,
 			carId,
+			base64: encodeImageToBase64(file.data),
 		});
-	} catch (error) {
-		// delete the image from the server
-		// only if it was saved locally
-		if (fs.existsSync(path)) fs.unlinkSync(path);
 
-		res.status(500).send({ message: "Internal Server Error" });
+		console.log(image);
+
+	} catch (error) {
+		res.status(500).send(error);
 	}
 
-	res.status(201).send({ message: "Image created successfully" });
+	res.status(201).send({ message: "Image saved succesfully" });
 }
 
 module.exports = createImage;

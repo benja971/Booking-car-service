@@ -28,10 +28,6 @@ app.use(
 	})
 );
 
-app.use((req, res, next) => {
-	console.log(`${req.method} ${req.url}`);
-});
-
 routes(app);
 
 app.listen(process.env.PORT || 8080, () => {

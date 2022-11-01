@@ -1,6 +1,9 @@
 const config = require("../config/db.config.js");
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
+
+const { encodeImageToBase64 } = require("../controllers/images/images.utilities.js");
 
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	host: config.HOST,
@@ -152,6 +155,14 @@ db.sequelize
 			carId: 1,
 			startDate: new Date().addDays(1),
 			endDate: new Date().addDays(16),
+		});
+
+		db.Image.create({
+			carId: 3,
+			name: "Rclio_blanche_01.jpg",
+			base64: encodeImageToBase64(
+				fs.readFileSync("/code/public/assets/images/cars/Rclio_blanche_01.jpg")
+			),
 		});
 
 		console.log("Database & tables created!");
