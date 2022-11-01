@@ -7,11 +7,11 @@ specifiers:
   dotenv: ^16.0.3
   express: ^4.18.2
   express-fileupload: ^1.4.0
-  fs: ^0.0.1-security
+  fs: 0.0.1-security
   jsonwebtoken: ^8.5.1
   mysql2: ^2.3.3
   nodemon: ^2.0.20
-  sequelize: 6.25.3
+  sequelize: ^6.25.3
 
 dependencies:
   bcrypt: 5.1.0
@@ -42,7 +42,7 @@ packages:
       npmlog: 5.0.1
       rimraf: 3.0.2
       semver: 7.3.8
-      tar: 6.1.11
+      tar: 6.1.12
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -58,8 +58,8 @@ packages:
     resolution: {integrity: sha512-iiUgKzV9AuaEkZqkOLDIvlQiL6ltuZd9tGcW3gwpnX8JbuiuhFlEGmmFXEXkN50Cvq7Os88IY2v0dkDqXYWVgA==}
     dev: false
 
-  /@types/node/18.11.8:
-    resolution: {integrity: sha512-uGwPWlE0Hj972KkHtCDVwZ8O39GmyjfMane1Z3GUBGGnkZ2USDq7SxLpVIiIHpweY9DS0QTDH0Nw7RNBsAAZ5A==}
+  /@types/node/18.11.9:
+    resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
     dev: false
 
   /@types/validator/13.7.10:
@@ -1212,9 +1212,9 @@ packages:
       has-flag: 3.0.0
     dev: true
 
-  /tar/6.1.11:
-    resolution: {integrity: sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==}
-    engines: {node: '>= 10'}
+  /tar/6.1.12:
+    resolution: {integrity: sha512-jU4TdemS31uABHd+Lt5WEYJuzn+TJTCBLljvIAHZOz6M9Os5pJ4dD+vRFLxPa/n3T0iEFzpi+0x1UfuDZYbRMw==}
+    engines: {node: '>=10'}
     dependencies:
       chownr: 2.0.0
       fs-minipass: 2.1.0
@@ -1312,7 +1312,7 @@ packages:
   /wkx/0.5.0:
     resolution: {integrity: sha512-Xng/d4Ichh8uN4l0FToV/258EjMGU9MGcA0HV2d9B/ZpZB3lqQm7nkOdZdm5GhKtLLhAE7PiVQwN4eN+2YJJUg==}
     dependencies:
-      '@types/node': 18.11.8
+      '@types/node': 18.11.9
     dev: false
 
   /wrappy/1.0.2:

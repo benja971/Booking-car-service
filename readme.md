@@ -6,7 +6,7 @@ This is a personal project to practice docker with nodejs and mysql.
 
 ## Requirements
 
-Make sure you have installed docker and docker-compose.
+Make sure you have installed **docker**, **docker-compose** and **pnpm**.
 
 ## Run
 
@@ -21,6 +21,8 @@ $ docker-compose up -d
 
 Before using the service, you will need to create a `.env` file with the following variables:
 
+<!-- TODO: make docker look at node_env -->
+
 ```
 PORT = 8080
 
@@ -32,6 +34,8 @@ DB_PORT = 3306
 ```
 
 # Endpoints
+
+<!-- TODO: can add `seats` to cars datas -->
 
 ## GET /cars
 
@@ -47,7 +51,24 @@ DB_PORT = 3306
         		"model": "A3",
         		"year": 2019,
         		"color": "red",
-        		"price": 1000
+        		"price": 1000,
+        		"exposition_color": "#ff0000",
+        		"numberplate": "AB123CD",
+        		"doors": 5,
+        		"motorization": "1.6 TDI",
+        		"energy": "Diesel",
+        		"images": [
+        			{
+        				"id": 1,
+        				"name": "image1.jpg",
+        				"base64": "Base64 image String"
+        			},
+        			{
+        				"id": 2,
+        				"name": "image2.jpg",
+        				"base64": "Base64 image String"
+        			}
+        		]
         	},
         	{
         		"id": 2,
@@ -55,7 +76,24 @@ DB_PORT = 3306
         		"model": "A4",
         		"year": 2019,
         		"color": "red",
-        		"price": 1000
+        		"price": 1000,
+        		"exposition_color": "#ff0000",
+        		"numberplate": "AB123CD",
+        		"doors": 5,
+        		"motorization": "1.6 TDI",
+        		"energy": "Diesel",
+        		"images": [
+        			{
+        				"id": 3,
+        				"name": "image3.jpg",
+        				"base64": "Base64 image String"
+        			},
+        			{
+        				"id": 4,
+        				"name": "image4.jpg",
+        				"base64": "Base64 image String"
+        			}
+        		]
         	}
         ]
         ```
@@ -86,15 +124,32 @@ DB_PORT = 3306
 
     -   Body
 
-        ```js
-            {
-                "id": 1,
-                "brand": "Audi",
-                "model": "A3",
-                "year": 2019,
-                "color": "red",
-                "price": 1000,
-            }
+        ```json
+        {
+        	"id": 1,
+        	"brand": "Audi",
+        	"model": "A3",
+        	"year": 2019,
+        	"color": "red",
+        	"price": 1000,
+        	"exposition_color": "#ff0000",
+        	"numberplate": "AB123CD",
+        	"doors": 5,
+        	"motorization": "1.6 TDI",
+        	"energy": "Diesel",
+        	"images": [
+        		{
+        			"id": 1,
+        			"name": "image1.jpg",
+        			"base64": "Base64 image String"
+        		},
+        		{
+        			"id": 2,
+        			"name": "image2.jpg",
+        			"base64": "Base64 image String"
+        		}
+        	]
+        }
         ```
 
 -   Response 500 (json)
@@ -131,7 +186,12 @@ DB_PORT = 3306
         	"model": "A3",
         	"year": 2019,
         	"color": "red",
-        	"price": 1000
+        	"price": 1000,
+        	"exposition_color": "#ff0000",
+        	"numberplate": "AB123CD",
+        	"doors": 5,
+        	"motorization": "1.6 TDI",
+        	"energy": "Diesel"
         }
         ```
 
@@ -177,7 +237,24 @@ DB_PORT = 3306
         	"model": "A3",
         	"year": 2019,
         	"color": "red",
-        	"price": 1000
+        	"price": 1000,
+        	"exposition_color": "#ff0000",
+        	"numberplate": "AB123CD",
+        	"doors": 5,
+        	"motorization": "1.6 TDI",
+        	"energy": "Diesel",
+        	"images": [
+        		{
+        			"id": 1,
+        			"name": "image1.jpg",
+        			"base64": "Base64 image String"
+        		},
+        		{
+        			"id": 2,
+        			"name": "image2.jpg",
+        			"base64": "Base64 image String"
+        		}
+        	]
         }
         ```
 
@@ -224,6 +301,25 @@ DB_PORT = 3306
         	"error": "Internal Server Error"
         }
         ```
+
+## POST /cars/:id/image
+
+-   Params (json)
+
+    ```json
+    {
+    	"id": 1
+    }
+    ```
+
+-   Body (json)
+
+    ```json
+    {
+    	"name": "image1.jpg",
+    	"file": File(jpg, png, jpeg)
+    }
+    ```
 
 ## GET /users
 

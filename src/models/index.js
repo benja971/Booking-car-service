@@ -135,7 +135,7 @@ db.sequelize
 			exposition_color: "#000000",
 			numberplate: "AA-123-AA",
 			doors: 5,
-			motorization: "1.6",
+			motorization: "1.6 TDI",
 			energy: "diesel",
 		});
 
@@ -148,7 +148,7 @@ db.sequelize
 			exposition_color: "#000000",
 			numberplate: "BB-258-BB",
 			doors: 5,
-			motorization: "2.0",
+			motorization: "2.0 TDI",
 			energy: "diesel",
 		});
 
@@ -161,7 +161,7 @@ db.sequelize
 			exposition_color: "#ffffff",
 			numberplate: "CC-369-CC",
 			doors: 3,
-			motorization: "1.2",
+			motorization: "1.2 TDI",
 			energy: "diesel",
 		});
 
