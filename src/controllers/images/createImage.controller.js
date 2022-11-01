@@ -27,6 +27,10 @@ async function createImage(req, res) {
 	 */
 	const { file } = req?.files;
 
+	// verify that the file is an image
+	if (!file.mimetype.startsWith("image"))
+		return res.status(400).json({ message: "File must be an image" });
+
 	if (!(name && carId && file))
 		return res.status(400).json({ message: "Missing required fields" });
 
