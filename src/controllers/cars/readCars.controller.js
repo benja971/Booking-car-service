@@ -18,13 +18,13 @@ async function readCars(req, res) {
 	/**
 	 * @type {Car} options
 	 */
-	const options = JSON.parse(req?.body?.options) || {};
+	const options = req?.body?.options;
 
 	try {
 		return res.status(200).send(
 			await Car.findAll({
 				include: [Image],
-				where: options,
+				where: options ? JSON.parse(options) : {},
 			})
 		);
 	} catch (error) {
