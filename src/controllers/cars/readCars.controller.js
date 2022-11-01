@@ -3,7 +3,8 @@ const { Car, Image } = require("../../models");
 /**
  * get all cars from the database
  *
- * @typedef {{brand: string, model: string, year: number, color: string, price: number}} Car
+ * @typedef {{brand: string, model: string, year: number, color: string, price: number, exposition_color: string, numberplate: string, doors: number, motorization: number, energy: string}} Car
+ *
  *
  * @group Cars
  * @route GET /cars

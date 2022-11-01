@@ -36,9 +36,6 @@ async function createImage(req, res) {
 			carId,
 			base64: encodeImageToBase64(file.data),
 		});
-
-		console.log(image);
-
 	} catch (error) {
 		res.status(500).send(error);
 	}
