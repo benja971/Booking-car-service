@@ -4,22 +4,22 @@
 	"description": "",
 	"main": "./src/server.js",
 	"scripts": {
-		"start": "node ./src/server.js",
+		"start": "pnpm run docker-up",
 		"docker-up": "docker-compose up -d",
 		"docker-down": "docker-compose down",
 		"dev": "pnpm run docker-down && pnpm run docker-up",
 		"nodemon": "nodemon ./src/server.js"
 	},
 	"keywords": [
-    "booking",
-    "car",
-    "web",
-    "service",
-    "nodejs",
-    "express",
-    "mysql",
-    "docker"
-  ],
+		"booking",
+		"car",
+		"web",
+		"service",
+		"nodejs",
+		"express",
+		"mysql",
+		"docker"
+	],
 	"author": "Benjamin NIDDAM",
 	"license": "ISC",
 	"dependencies": {
