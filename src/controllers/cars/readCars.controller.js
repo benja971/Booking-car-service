@@ -21,12 +21,11 @@ async function readCars(req, res) {
 	const options = req?.body?.options;
 
 	// TODO: add pagination
-	// TODO: add notation attributes
 
 	try {
 		return res.status(200).send(
 			await Car.findAll({
-				attributes: ['id', 'model', 'price'],
+				attributes: ['id', 'model', 'price', 'notation'],
 				include: [
 					{
 						model: Image,

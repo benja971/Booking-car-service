@@ -53,9 +53,12 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			trim: true,
 		},
+		notation: {
+			type: Sequelize.DECIMAL(2, 1),
+			allowNull: false,
+			defaultValue: 0,
+		},
 	});
 
 	return Car;
 };
-
-// TODO: add notation to cars
