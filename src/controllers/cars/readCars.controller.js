@@ -1,4 +1,4 @@
-const { Car, Image } = require("../../models");
+const { Car, Image } = require('../../models');
 
 /**
  * get all cars from the database
@@ -20,12 +20,21 @@ async function readCars(req, res) {
 	 */
 	const options = req?.body?.options;
 
+	// TODO: add pagination
+	// TODO: add notation attributes
+
 	try {
 		return res.status(200).send(
 			await Car.findAll({
-				include: [Image],
+				attributes: ['id', 'model', 'price'],
+				include: [
+					{
+						model: Image,
+						attributes: ['id', 'name', 'base64'],
+					},
+				],
 				where: options ? JSON.parse(options) : {},
-			})
+			}),
 		);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });
@@ -49,9 +58,9 @@ async function readCar(req, res) {
 	 */
 	const { id } = req.params;
 
-	if (isNaN(id)) return res.status(400).send({ message: "Id must be a number" });
+	if (isNaN(id)) return res.status(400).send({ message: 'Id must be a number' });
 
-	if (!id) return res.status(400).send({ message: "Id is required" });
+	if (!id) return res.status(400).send({ message: 'Id is required' });
 
 	try {
 		return res.status(200).send(
@@ -60,7 +69,7 @@ async function readCar(req, res) {
 					id,
 				},
 				include: [Image],
-			})
+			}),
 		);
 	} catch (error) {
 		return res.status(500).send({ message: error.message });

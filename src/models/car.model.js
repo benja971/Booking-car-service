@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Car = sequelize.define("car", {
+	const Car = sequelize.define('car', {
 		id: {
 			type: Sequelize.BIGINT,
 			primaryKey: true,
@@ -57,3 +57,5 @@ module.exports = (sequelize, Sequelize) => {
 
 	return Car;
 };
+
+// TODO: add notation to cars

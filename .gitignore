@@ -1,6 +1,9 @@
 # Docker
 /mysql
 
+/.devcontainer
+
+
 # Images
 /public/assets/images/cars
 
