@@ -58,6 +58,11 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			defaultValue: 0,
 		},
+		description: {
+			type: Sequelize.TEXT,
+			allowNull: false,
+			trim: true,
+		},
 	});
 
 	return Car;
