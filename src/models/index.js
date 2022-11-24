@@ -1,7 +1,9 @@
 const config = require('../config/db.config.js');
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
-const fs = require('fs');
+const fs = require('fs/promises');
+const cars = require('../../cars.json');
+const users = require('../../users.json');
 
 const { encodeImageToBase64 } = require('../controllers/images/images.utilities.js');
 
@@ -97,90 +99,37 @@ db.sequelize
 		});
 
 		// create users
-		db.User.create({
-			name: 'john',
-			email: 'john@gmail.com',
-			password: await bcrypt.hash('user', 10),
-			roleId: 1,
-		});
-
-		db.User.create({
-			name: 'jane',
-			email: 'jane@gmail.com',
-			password: await bcrypt.hash('user', 10),
-			roleId: 1,
-		});
-
-		db.User.create({
-			name: 'jack',
-			email: 'jack@gmail.com',
-			password: await bcrypt.hash('user', 10),
-			roleId: 1,
-		});
-
-		db.User.create({
-			name: 'admin',
-			email: 'arandomadmin@gmail.com',
-			password: await bcrypt.hash('admin', 10),
-			roleId: 2,
-		});
+		for (const user of users) {
+			user.password = await bcrypt.hash(user.password, 10);
+			await db.User.create(user);
+		}
 
 		// create cars
-		await db.Car.create({
-			brand: 'Audi',
-			model: 'A3',
-			year: 2019,
-			color: 'black',
-			price: 200,
-			exposition_color: '#000000',
-			numberplate: 'AA-123-AA',
-			doors: 5,
-			motorization: '1.6 TDI',
-			energy: 'diesel',
-			description: 'Audi A3 2019',
-		});
+		for (const car of cars) {
+			car.notation = Math.random() * 5;
+			car.year = Math.floor(Math.random() * 10) + 2010;
 
-		await db.Car.create({
-			brand: 'Audi',
-			model: 'A4',
-			year: 2019,
-			color: 'black',
-			price: 200,
-			exposition_color: '#000000',
-			numberplate: 'BB-258-BB',
-			doors: 5,
-			motorization: '2.0 TDI',
-			energy: 'diesel',
-			description: 'Audi A4 2019',
-		});
+			await db.Car.create(car);
+		}
 
-		await db.Car.create({
-			brand: 'Renault',
-			model: 'Clio',
-			year: 2019,
-			color: 'white',
-			price: 100,
-			exposition_color: '#ffffff',
-			numberplate: 'CC-369-CC',
-			doors: 3,
-			motorization: '1.2 TDI',
-			energy: 'diesel',
-			description: 'Renault Clio 2019',
-		});
+		// create images for cars
+		fs.readFile('/code/public/assets/images/cars/CLIO_presentation2.png')
+			.then(async image => {
+				for (let i = 0; i < cars.length; i++) {
+					await db.Image.create({
+						carId: i + 1,
+						name: 'CLIO_presentation.png',
+						base64: encodeImageToBase64(image),
+					});
+				}
+			})
+			.catch(err => console.log(err));
 
 		db.Reservation.create({
 			userId: 2,
 			carId: 1,
 			startDate: new Date().addDays(1),
 			endDate: new Date().addDays(16),
-		});
-
-		db.Image.create({
-			carId: 3,
-			name: 'Rclio_blanche_01.jpg',
-			base64: encodeImageToBase64(
-				fs.readFileSync('/code/public/assets/images/cars/Rclio_blanche_01.jpg'),
-			),
 		});
 
 		console.log('Database & tables created!');
