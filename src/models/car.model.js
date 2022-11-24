@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
 			trim: true,
 		},
 		price: {
-			type: Sequelize.DECIMAL(10, 2),
+			type: Sequelize.INTEGER,
 			allowNull: false,
 		},
 		exposition_color: {
