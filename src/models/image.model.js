@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-	const Image = sequelize.define("image", {
+	const Image = sequelize.define('image', {
 		id: {
 			type: Sequelize.BIGINT,
 			primaryKey: true,
@@ -15,7 +15,8 @@ module.exports = (sequelize, Sequelize) => {
 			notNull: true,
 		},
 		base64: {
-			type: Sequelize.TEXT,
+			// TODO: make it an url to the image on the server
+			type: Sequelize.TEXT('long'),
 			notNull: true,
 		},
 	});
