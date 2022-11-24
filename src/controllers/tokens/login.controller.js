@@ -1,6 +1,6 @@
-const { compare } = require("bcrypt");
-const { sign } = require("jsonwebtoken");
-const { User } = require("../../models");
+const { compare } = require('bcrypt');
+const { sign } = require('jsonwebtoken');
+const { User } = require('../../models');
 
 module.exports = async function createToken(req, res) {
 	/**
@@ -16,24 +16,24 @@ module.exports = async function createToken(req, res) {
 			await User.findOne({
 				where: { email },
 			})
-		).dataValues;
+		)?.dataValues;
 
-		if (!user) return res.status(404).send({ message: "User not found" });
+		if (!user) return res.status(404).send({ message: 'User not found' });
 
 		const isPasswordValid = await compare(password, user.password);
 
-		if (!isPasswordValid) return res.status(401).send({ message: "Invalid password" });
+		if (!isPasswordValid) return res.status(401).send({ message: 'Invalid password' });
 
 		const { id, roleId } = user;
 
 		const token = sign({ userId: id, roleId }, process.env.JWT_SECRET, {
-			expiresIn: "1h",
+			expiresIn: '1h',
 		});
 
 		delete user.password;
 
 		res.send({ user, token });
 	} catch (error) {
-		res.status(500).send({ message: "Internal server error" });
+		res.status(500).send({ message: 'Internal server error' });
 	}
 };
