@@ -25,7 +25,7 @@ async function readCars(req, res) {
 	try {
 		return res.status(200).send(
 			await Car.findAll({
-				attributes: ['id', 'model', 'price', 'notation', 'description'],
+				attributes: ['id', 'model', 'price', 'notation', 'description', 'exposition_color'],
 				include: [
 					{
 						model: Image,
