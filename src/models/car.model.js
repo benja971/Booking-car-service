@@ -58,7 +58,37 @@ module.exports = (sequelize, Sequelize) => {
 			allowNull: false,
 			defaultValue: 0,
 		},
+		notation_count: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+			defaultValue: 0,
+		},
 		description: {
+			type: Sequelize.TEXT,
+			allowNull: false,
+			trim: true,
+		},
+		text_color: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
+		design_title: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
+		design_description: {
+			type: Sequelize.TEXT,
+			allowNull: false,
+			trim: true,
+		},
+		equipment_title: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			trim: true,
+		},
+		equipment_description: {
 			type: Sequelize.TEXT,
 			allowNull: false,
 			trim: true,
@@ -67,3 +97,11 @@ module.exports = (sequelize, Sequelize) => {
 
 	return Car;
 };
+
+// TODO: add the following fields to the car model
+
+// - text_color
+// - desing title
+// - desing description
+// - equipment title
+// - equipment description
