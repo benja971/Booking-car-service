@@ -18,7 +18,7 @@ async function readCars(req, res) {
 	/**
 	 * @type {Car} options
 	 */
-	const options = req?.body?.options;
+	// const options = req?.body?.options;
 
 	// TODO: add pagination
 
@@ -40,7 +40,7 @@ async function readCars(req, res) {
 						attributes: ['id', 'name', 'base64'],
 					},
 				],
-				where: options ? JSON.parse(options) : {},
+				// where: options ? JSON.parse(options) : {},
 			}),
 		);
 	} catch (error) {

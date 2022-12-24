@@ -20,16 +20,6 @@ const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	},
 });
 
-/**
- * @typedef {Database} db
- * @property {sequelize} sequelize
- * @property {Sequelize} Sequelize
- * @property {sequelize.Model} User
- * @property {sequelize.Model} Car
- * @property {sequelize.Model} Reservation
- * @property {sequelize.Model} Role
- * @property {sequelize.Model} Image
- */
 const db = {
 	sequelize,
 	Sequelize,

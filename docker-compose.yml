@@ -1,24 +1,24 @@
-version: "3.8"
+version: '3.8'
 
 services:
     mysql:
-        image: mysql
         container_name: express_car_db
+        image: mysql
         restart: unless-stopped
         # env_file: ./.env
         environment:
             MYSQL_DATABASE: ${DB_NAME}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
         ports:
-            - "3306:3306"
+            - '3306:3306'
         volumes:
             - carsexpress:/var/lib/mysql
 
     api:
+        container_name: express_cars_api
         depends_on:
             - mysql
 
-        container_name: express_cars_api
         build:
             dockerfile: dockerfile
             context: .
@@ -27,9 +27,9 @@ services:
         volumes:
             - .:/app
         ports:
-            - "${PORT}:${PORT}"
+            - '${PORT}:${PORT}'
 
-        command: npm run nodemon
+        command: npm run start
 
 volumes:
     carsexpress:
