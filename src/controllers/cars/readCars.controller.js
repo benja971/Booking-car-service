@@ -37,7 +37,7 @@ async function readCars(req, res) {
 				include: [
 					{
 						model: Image,
-						attributes: ['id', 'name', 'base64'],
+						attributes: ['id', 'name', 'url'],
 					},
 				],
 				where: options ? JSON.parse(options) : {},

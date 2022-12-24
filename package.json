@@ -4,10 +4,10 @@
 	"description": "",
 	"main": "./src/server.js",
 	"scripts": {
-		"start": "pnpm run docker-up",
-		"docker-up": "docker-compose up -d",
+		"start": "node ./src/server.js",
+		"docker": "pnpm run docker-down && pnpm run docker-up",
+		"docker-up": "docker-compose up -d --build api",
 		"docker-down": "docker-compose down",
-		"dev": "pnpm run docker-down && pnpm run docker-up",
 		"nodemon": "nodemon ./src/server.js"
 	},
 	"keywords": [
