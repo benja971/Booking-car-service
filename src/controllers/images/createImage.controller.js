@@ -1,8 +1,8 @@
-const fs = require("fs");
+const fs = require('fs');
 
-const { Image } = require("../../models");
+const { Image } = require('../../models');
 
-const { encodeImageToBase64 } = require("./images.utilities");
+const { encodeImageToBase64 } = require('./images.utilities');
 
 /**
  * Add a new image of a car to the database
@@ -28,13 +28,21 @@ async function createImage(req, res) {
 	const { file } = req?.files;
 
 	if (!(name && carId && file))
-		return res.status(400).send({ message: "Missing required fields" });
+		return res.status(400).send({ message: 'Missing required fields' });
 
 	// verify that the file is an image
-	if (!file.mimetype.startsWith("image"))
-		return res.status(400).send({ message: "File must be an image" });
+	if (!file.mimetype.startsWith('image'))
+		return res.status(400).send({ message: 'File must be an image' });
+
+	// save the image to the server
+	const baseURL = process.env.BASE_URL;
+	const filename = `${Date.now()}-${file.name}`;
+	const path = `${baseURL}/assets/images/cars/${filename}`;
 
 	try {
+		// save the image to the server
+		fs.writeFileSync(path, file.data);
+
 		const image = await Image.create({
 			name,
 			carId,
@@ -44,7 +52,7 @@ async function createImage(req, res) {
 		res.status(500).send(error);
 	}
 
-	res.status(201).send({ message: "Image saved succesfully" });
+	res.status(201).send({ message: 'Image saved succesfully' });
 }
 
 module.exports = createImage;

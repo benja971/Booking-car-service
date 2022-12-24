@@ -105,11 +105,11 @@ db.sequelize
 		// create images for cars
 		fs.readFile('/code/public/assets/images/cars/CLIO_presentation2.png')
 			.then(async image => {
-				for (let i = 0; i < cars.length; i++) {
+				for (let i = 1; i <= cars.length; i++) {
 					await db.Image.create({
-						carId: i + 1,
-						name: 'CLIO_presentation.png',
-						base64: encodeImageToBase64(image),
+						carId: i,
+						name: 'CLIO_presentation2.png',
+						url: `https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png`,
 					});
 				}
 			})

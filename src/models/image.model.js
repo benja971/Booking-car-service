@@ -13,11 +13,12 @@ module.exports = (sequelize, Sequelize) => {
 		name: {
 			type: Sequelize.STRING,
 			notNull: true,
+			trim: true,
 		},
-		base64: {
-			// TODO: make it an url to the image on the server
-			type: Sequelize.TEXT('long'),
+		url: {
+			type: Sequelize.STRING,
 			notNull: true,
+			trim: true,
 		},
 	});
 
