@@ -5,8 +5,6 @@ const fs = require('fs/promises');
 const cars = require('../../cars.json');
 const users = require('../../users.json');
 
-const { encodeImageToBase64 } = require('../controllers/images/images.utilities.js');
-
 const sequelize = new Sequelize(config.DB, config.USER, config.PASSWORD, {
 	host: config.HOST,
 	dialect: config.dialect,
@@ -108,8 +106,7 @@ db.sequelize
 				for (let i = 1; i <= cars.length; i++) {
 					await db.Image.create({
 						carId: i,
-						name: 'CLIO_presentation2.png',
-						url: `https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png`,
+						url: 'https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png',
 					});
 				}
 			})

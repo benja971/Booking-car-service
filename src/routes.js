@@ -1,3 +1,5 @@
+const express = require('express');
+
 const createCar = require('./controllers/cars/createCar.controller');
 const updateCar = require('./controllers/cars/updateCar.controller');
 const deleteCar = require('./controllers/cars/deleteCar.controller');
@@ -23,6 +25,8 @@ const createImage = require('./controllers/images/createImage.controller');
  * @param {Express.Application} app
  */
 module.exports = function routes(app) {
+	app.use('/', express.static('public'));
+
 	app.post('/car', [verifyToken, verifyAdmin], createCar);
 	app.patch('/cars/update/:id', [verifyToken, verifyAdmin], updateCar);
 	app.delete('/cars/delete/:id', [verifyToken, verifyAdmin], deleteCar);

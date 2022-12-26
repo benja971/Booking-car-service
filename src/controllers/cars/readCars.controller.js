@@ -18,9 +18,6 @@ async function readCars(req, res) {
 	/**
 	 * @type {Car} options
 	 */
-	// const options = req?.body?.options;
-
-	// TODO: add pagination
 
 	try {
 		return res.status(200).send(
@@ -37,10 +34,10 @@ async function readCars(req, res) {
 				include: [
 					{
 						model: Image,
-						attributes: ['id', 'name', 'url'],
+						attributes: ['id', 'url'],
+						limit: 1,
 					},
 				],
-				// where: options ? JSON.parse(options) : {},
 			}),
 		);
 	} catch (error) {

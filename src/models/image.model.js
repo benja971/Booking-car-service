@@ -10,11 +10,6 @@ module.exports = (sequelize, Sequelize) => {
 			type: Sequelize.BIGINT,
 			notNull: true,
 		},
-		name: {
-			type: Sequelize.STRING,
-			notNull: true,
-			trim: true,
-		},
 		url: {
 			type: Sequelize.STRING,
 			notNull: true,
