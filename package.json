@@ -5,9 +5,7 @@
 	"main": "./src/server.js",
 	"scripts": {
 		"start": "node ./src/server.js",
-		"docker-up": "docker-compose up -d --build api",
-		"docker-down": "docker-compose down",
-		"docker": "pnpm run docker-down; pnpm run docker-up",
+		"docker": "docker-compose down; docker-compose up -d --build api",
 		"nodemon": "nodemon ./src/server.js"
 	},
 	"keywords": [
@@ -50,3 +48,5 @@
 		"url": "git@github.com:benja971/Booking-car-service.git"
 	}
 }
+
+
