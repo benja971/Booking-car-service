@@ -35,7 +35,36 @@ DB_PORT = 3306
 
 # Endpoints
 
-<!-- TODO: can add `seats` to cars datas -->
+## POST /register
+
+-   Body (json)
+
+    ```json
+    {
+    	"email": "john.doe@email.com",
+    	"password": "password"
+    }
+    ```
+
+-   Response 200 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"access_token": "your_access_token"
+        }
+        ```
+
+-   Response 400 (json)
+
+    -   Body
+
+        ```json
+        {
+        	"error": "Bad Request"
+        }
+        ```
 
 ## GET /cars
 
@@ -47,51 +76,33 @@ DB_PORT = 3306
         [
         	{
         		"id": 1,
-        		"brand": "Audi",
-        		"model": "A3",
-        		"year": 2019,
-        		"color": "red",
-        		"price": 1000,
-        		"exposition_color": "#ff0000",
-        		"numberplate": "AB123CD",
-        		"doors": 5,
-        		"motorization": "1.6 TDI",
-        		"energy": "Diesel",
+        		"model": "Twingo",
+        		"brand": "Renault",
+        		"price": 17,
+        		"notation": "1.6",
+        		"description": "la petite voiture citadine agile et à la pointe de l'élégance",
+        		"exposition_color": "#A8C5CE",
+        		"text_color": "#000000",
         		"images": [
         			{
         				"id": 1,
-        				"name": "image1.jpg",
-        				"base64": "Base64 image String"
-        			},
-        			{
-        				"id": 2,
-        				"name": "image2.jpg",
-        				"base64": "Base64 image String"
+        				"url": "https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png"
         			}
         		]
         	},
         	{
         		"id": 2,
-        		"brand": "Audi",
-        		"model": "A4",
-        		"year": 2019,
-        		"color": "red",
-        		"price": 1000,
-        		"exposition_color": "#ff0000",
-        		"numberplate": "AB123CD",
-        		"doors": 5,
-        		"motorization": "1.6 TDI",
-        		"energy": "Diesel",
+        		"model": "CLio",
+        		"brand": "Renault",
+        		"price": 17,
+        		"notation": "3.2",
+        		"description": "l'iconique voiture citadine continue de vous surprendre",
+        		"exposition_color": "#27385d",
+        		"text_color": "#ffffff",
         		"images": [
         			{
-        				"id": 3,
-        				"name": "image3.jpg",
-        				"base64": "Base64 image String"
-        			},
-        			{
-        				"id": 4,
-        				"name": "image4.jpg",
-        				"base64": "Base64 image String"
+        				"id": 2,
+        				"url": "https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png"
         			}
         		]
         	}
@@ -116,7 +127,7 @@ DB_PORT = 3306
 
     ```json
     {
-    	"id": 1
+    	"id": 3
     }
     ```
 
@@ -126,31 +137,42 @@ DB_PORT = 3306
 
         ```json
         {
-        	"id": 1,
-        	"brand": "Audi",
-        	"model": "A3",
-        	"year": 2019,
-        	"color": "red",
-        	"price": 1000,
-        	"exposition_color": "#ff0000",
-        	"numberplate": "AB123CD",
+        	"id": 3,
+        	"brand": "Renault",
+        	"model": "Capture",
+        	"year": 2016,
+        	"color": "Red",
+        	"price": 17,
+        	"exposition_color": "#943031",
+        	"numberplate": "BB-123-BB",
         	"doors": 5,
-        	"motorization": "1.6 TDI",
-        	"energy": "Diesel",
+        	"motorization": "1.9 TDI",
+        	"energy": "diesel",
+        	"notation": "0.5",
+        	"notation_count": 50,
+        	"description": "l'iconique voiture citadine continue de vous surprendre",
+        	"text_color": "#ffffff",
+        	"design_title": "Élégante et séduisante",
+        	"design_description": "lignes sensuelles, profil dynamique, flancs sculptés et nouvelle signature lumineuse avec éclairage full LED... Dès le premier regard, Clio séduit par son style. Également disponible en full hybride, Clio s’adapte à vos envies.",
+        	"equipment_title": "Pour vous faciliter la conduite au quotidien",
+        	"equipment_description": "avec 3 ans de connectivité offerte, le système multimédia Easy link vous simplifie la vie grâce à son moteur de recherche d’adresses Google, son service de navigation connectée TomTom et les mises à jour automatiques.",
+        	"createdAt": "2022-12-27T21:56:48.000Z",
+        	"updatedAt": "2022-12-27T21:56:48.000Z",
         	"images": [
         		{
-        			"id": 1,
-        			"name": "image1.jpg",
-        			"base64": "Base64 image String"
-        		},
-        		{
-        			"id": 2,
-        			"name": "image2.jpg",
-        			"base64": "Base64 image String"
+        			"id": 3,
+        			"carId": 3,
+        			"url": "https://renault.nicolasgwy.dev/assets/images/cars/CLIO_presentation2.png",
+        			"createdAt": "2022-12-27T21:56:48.000Z",
+        			"updatedAt": "2022-12-27T21:56:48.000Z"
         		}
         	]
         }
         ```
+
+    ```
+
+    ```
 
 -   Response 500 (json)
 
@@ -182,16 +204,24 @@ DB_PORT = 3306
 
         ```json
         {
-        	"brand": "Audi",
-        	"model": "A3",
-        	"year": 2019,
-        	"color": "red",
-        	"price": 1000,
-        	"exposition_color": "#ff0000",
-        	"numberplate": "AB123CD",
+        	"brand": "Renault",
+        	"model": "Clio",
+        	"year": 2016,
+        	"color": "Red",
+        	"price": 17,
+        	"exposition_color": "#943031",
+        	"numberplate": "BB-123-BB",
         	"doors": 5,
-        	"motorization": "1.6 TDI",
-        	"energy": "Diesel"
+        	"motorization": "1.9 TDI",
+        	"energy": "diesel",
+        	"notation": "0.5",
+        	"notation_count": 50,
+        	"description": "l'iconique voiture citadine continue de vous surprendre",
+        	"text_color": "#ffffff",
+        	"design_title": "Élégante et séduisante",
+        	"design_description": "lignes sensuelles, profil dynamique, flancs sculptés et nouvelle signature lumineuse avec éclairage full LED... Dès le premier regard, Clio séduit par son style. Également disponible en full hybride, Clio s’adapte à vos envies.",
+        	"equipment_title": "Pour vous faciliter la conduite au quotidien",
+        	"equipment_description": "avec 3 ans de connectivité offerte, le système multimédia Easy link vous simplifie la vie grâce à son moteur de recherche d’adresses Google, son service de navigation connectée TomTom et les mises à jour automatiques."
         }
         ```
 
@@ -692,3 +722,19 @@ DB_PORT = 3306
         	"error": "Internal Server Error"
         }
         ```
+
+# $Middlewares
+
+The API uses the token-based authentication. The token is generated when the user logs in and is sent with every request to the API. The token must be sent in the Authorization header for every request.
+
+## $Authentication
+
+-   Checks if the user is logged in
+
+## $Authorization
+
+-   Checks if the user is authorized to perform the action
+
+# Database Schema
+
+![Database diagram](./db.png)
